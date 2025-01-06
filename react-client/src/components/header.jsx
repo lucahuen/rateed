@@ -6,7 +6,7 @@ const Header = () => {
     <>
       <AppBar>
         <Toolbar>
-          <Typography variant="h6">MERN Stack Lecture</Typography>
+          <Typography variant="h6">RateEd</Typography>
         </Toolbar>
       </AppBar>
     </>
