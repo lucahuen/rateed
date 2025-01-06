@@ -24,7 +24,7 @@ const Footer = () => {
               href="https://www.uni-due.de/soco"
               target="_blank"
             >
-              Social Computing Group
+              Kidneyrock 2
             </Link>{" "}
             {new Date().getFullYear()}
             {"."}
