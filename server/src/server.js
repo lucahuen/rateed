@@ -3,9 +3,11 @@ const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
+const courseRouter = require("./routes/course-routes");
 const todoRouter = require("./routes/todo-routes");
 const errorHandler = require("./middleware/error-handler-middleware");
 const connectDB = require("./database/connectDB");
+
 
 dotenv.config();
 PORT = process.env.PORT | 3000;
@@ -18,13 +20,14 @@ if (process.env.NODE_ENV !== "production") {
     console.log("NODE_ENV", process.env.NODE_ENV);
     app.use(cors({
         origin: [
-            "http://localhost:4200",
+            "http://localhost:3000",
             "http://localhost:5173"
         ]
     }));
 }
 
 app.use("/todos", todoRouter);
+app.use("/courses", courseRouter);
 
 app.use(errorHandler);
 
