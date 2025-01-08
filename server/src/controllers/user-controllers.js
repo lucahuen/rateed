@@ -14,9 +14,13 @@ exports.createUser = async (req, res, next) => {
     }
 };
 
-exports.getAllUsers = async (_, res, next) => {
+//todo: implememt getUser
+exports.getUser = async (req, res, next) => {
+    const userId = req.params.userId
     try {
 
+    } catch (error) {
+        next(error)
     }
 
 }

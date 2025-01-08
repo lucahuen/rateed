@@ -6,8 +6,8 @@ export default defineConfig({
     server: {
         port: 5173, // Entwicklungsport für Vite
         proxy: {
-            '/todos': 'http://localhost:3000', // Leitet API-Anfragen an das Backend weiter
-        }
+            '/': 'http://localhost:3000', // Leitet API-Anfragen an das Backend weiter
+        },
     },
     plugins: [react()],
-})
+});

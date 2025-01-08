@@ -1,18 +1,22 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Routes instead of Switch
-import { ApiProvider } from "./context/api-context";
-import TodoList from "./pages/todo-list.jsx";
-import CourseList from "./pages/course-list.jsx";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TodoList from './pages/todo-list';
+import LoginPage from './pages/login-page';
+import CourseList from './pages/course-list';
+import Header from './components/header';
+import { ApiProvider } from './context/api-context';
 
 function App() {
     return (
         <ApiProvider>
             <Router>
-                <Routes> {/* Use Routes instead of Switch */}
-                    <Route path="/todos" element={<TodoList />} />
-                    <Route path="/courses" element={<CourseList />} />
-                    {/* You can add a default or home route */}
-                    <Route path="/" element={<div>Welcome to the app!</div>} />
+                <Routes>
+                    <Route path="/" element={<TodoList />} />
+                    {/*<Route path="/todos" element={<TodoList />} />*/}
+                    <Route path="/todos" element={<div>Test</div>} />
+                    {/*<Route path="/login" element={<LoginPage />} />*/}
+                    {/*<Route path="/courses" element={<CourseList />} />*/}
+                    {/*<Route path="*" element={<h1>404 - Seite nicht gefunden</h1>} />*/}
                 </Routes>
             </Router>
         </ApiProvider>
