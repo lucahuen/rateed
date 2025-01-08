@@ -21,7 +21,7 @@ const AddTodo = ({ handleAddTodo }) => {
         <Grid size="grow">
           <TextField
             fullWidth
-            placeholder="asshole"
+            placeholder="Type sth"
             size="small"
             onChange={handleChange}
             value={addTask}
