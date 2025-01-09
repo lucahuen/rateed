@@ -4,6 +4,8 @@ const requestLogger = require("../middleware/logger-middleware");
 
 const userRoutes = express.Router();
 
-userRoutes.post("/users/create", requestLogger, userController.createUser);
+userRoutes.post("/create", requestLogger, userController.createUser);
+
+userRoutes.post("/login", requestLogger, userController.handleLoginRequest)
 
 module.exports = userRoutes;

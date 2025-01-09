@@ -7,7 +7,7 @@ import {ApiContext} from "../context/api-context.jsx";
 export default function RegisterPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {registerService} = useContext(ApiContext);
+    const {userService} = useContext(ApiContext);
 
     const navigate = useNavigate()
 
@@ -19,7 +19,7 @@ export default function RegisterPage() {
         }
         //Todo: check if username is unique
 
-        registerService
+        userService
             .requestRegister(username, password)
             .then(() => {
                 navigate("/login")

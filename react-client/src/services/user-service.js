@@ -9,4 +9,12 @@ export default class UserService {
             throw error.response.data.error.message
         }
     }
+    requestLogin = async (username, password) => {
+        try {
+            const response = await api.post("/api/users/login", {username, password})
+            return response.status
+        }catch (error){
+            throw error.response.data.error.message
+        }
+    }
 }
