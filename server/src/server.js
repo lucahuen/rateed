@@ -3,7 +3,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-const userRouter = require("./routes/users");
+const userRouter = require("./routes/user-routes");
 const courseRouter = require("./routes/course-routes");
 const todoRouter = require("./routes/todo-routes");
 const errorHandler = require("./middleware/error-handler-middleware");

@@ -3,7 +3,7 @@ import api from "../utils/backend";
 export default class CourseService {
     requestAllCourses = async () => {
         try {
-            const response = await api.get("/courses");
+            const response = await api.get("/api/courses");
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
@@ -12,7 +12,7 @@ export default class CourseService {
 
     requestCreateCourse = async (name) => {
         try {
-            const response = await api.post("/courses/create", {name});
+            const response = await api.post("/api/courses/create", {name});
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
@@ -21,7 +21,7 @@ export default class CourseService {
 
     requestDeleteCourse = async (courseId) => {
         try {
-            const response = await api.delete(`/courses/${courseId}`);
+            const response = await api.delete(`/api/courses/${courseId}`);
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
