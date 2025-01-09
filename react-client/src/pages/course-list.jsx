@@ -35,9 +35,9 @@ export default function CourseList() {
             });
     };
 
-    const handleAddCourse = (name) => {
+    const handleAddCourse = (name, semester) => {
         courseService
-            .requestCreateCourse(name)
+            .requestCreateCourse(name, semester)
             .then((res) => {
                 setCourses((prevState) => [...prevState, res.data]);
             })
@@ -63,7 +63,7 @@ export default function CourseList() {
                         spacing={1}
                     >
                         <Typography variant="h5" align="center">
-                            A Simple Course List1
+                            Well just add a Course you dumb fuck should i explain it to you or what?
                         </Typography>
                         <Divider/>
                         <AddCourse handleAddCourse={handleAddCourse}/>

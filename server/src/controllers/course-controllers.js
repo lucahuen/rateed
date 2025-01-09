@@ -2,8 +2,9 @@ const Course = require("../models/course-model");
 
 exports.createCourse = async (req, res, next) => {
     const name = req.body.name;
+    const semester = req.body.semester;
     try {
-        const newCourse = await new Course({name}).save();
+        const newCourse = await new Course({name, semester}).save();
         return res.status(201).json({
             message: `New course created!`,
             data: newCourse,

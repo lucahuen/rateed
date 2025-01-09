@@ -10,9 +10,9 @@ export default class CourseService {
         }
     };
 
-    requestCreateCourse = async (name) => {
+    requestCreateCourse = async (name, semester) => {
         try {
-            const response = await api.post("/api/courses/create", {name});
+            const response = await api.post("/api/courses/create", {name, semester});
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
