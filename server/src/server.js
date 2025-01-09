@@ -3,6 +3,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
+const userRouter = require("./routes/users");
 const courseRouter = require("./routes/course-routes");
 const todoRouter = require("./routes/todo-routes");
 const errorHandler = require("./middleware/error-handler-middleware");
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use("/todos", todoRouter);
 app.use("/courses", courseRouter);
+app.use("/users", userRouter);
 
 app.use(errorHandler);
 
