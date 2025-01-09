@@ -3,7 +3,7 @@ import api from "../utils/backend.js";
 export default class TodoService {
     requestAllTodos = async () => {
         try {
-            const response = await api.get("/todos");
+            const response = await api.get("/api/todos");
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
@@ -12,7 +12,7 @@ export default class TodoService {
 
     requestCreateTodo = async (title) => {
         try {
-            const response = await api.post("/todos/create", {title});
+            const response = await api.post("/api/todos/create", {title});
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
@@ -21,7 +21,7 @@ export default class TodoService {
 
     requestDeleteTodo = async (todoId) => {
         try {
-            const response = await api.delete(`/todos/${todoId}`);
+            const response = await api.delete(`/api/todos/${todoId}`);
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;

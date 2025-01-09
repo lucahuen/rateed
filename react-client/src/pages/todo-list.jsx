@@ -67,7 +67,7 @@ export default function TodoList() {
                         </Typography>
                         <Divider/>
                         {/*define props -> hanldeAddTodo is a func, placerholder a string*/}
-                        <AddTodo handleAddTodo={handleAddTodo} placeholder={"fuck you more (i am a prop)"}/>
+                        <AddTodo handleAddTodo={handleAddTodo} placeholder={"Ich hasse React (i am a prop)"}/>
 
                         <Todo todos={todos} handleDeleteTodo={handleDeleteTodo}/>
                     </Grid>
