@@ -1,4 +1,4 @@
-import api from "../utils/backend";
+import api from "../utils/backend.js";
 
 export default class TodoService {
     requestAllTodos = async () => {

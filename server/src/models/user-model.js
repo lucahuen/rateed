@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+//todo: create mongodb collection for users
 const userSchema = new Schema({
         username: {type: String, required: true},
         password: {type: String, required: true}

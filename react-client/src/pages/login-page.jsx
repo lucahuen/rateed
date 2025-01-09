@@ -72,7 +72,6 @@ export default function LoginPage() {
 
                 <Divider sx={{width: '100%', maxWidth: 400}}/>
 
-                {/* Text and Register Button */}
                 <Box sx={{textAlign: 'center', maxWidth: 400}}>
                     <Typography variant="body1" sx={{marginBottom: 1}}>
                         Noch keinen Account?
@@ -80,7 +79,7 @@ export default function LoginPage() {
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={handleRegister} // Funktion später implementieren
+                        onClick={handleRegister}
                         sx={{width: '100%'}}
                     >
                         Register

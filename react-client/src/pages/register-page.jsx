@@ -1,19 +1,32 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/material";
 import Header from "../components/header";
 import {useNavigate} from "react-router-dom";
+import {ApiContext} from "../context/api-context.jsx";
 
 export default function RegisterPage() {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const {registerService} = useContext(ApiContext);
 
     const navigate = useNavigate()
 
     const handleRegister = () => {
-        setUsername(username)
-        setPassword(password)
-        console.log(`username: ${username}, password: ${password}`)
-        // todo: implement correctly
+
+        if (!username || !password) {
+            console.error("Bitte füllen Sie beide Felder aus.");
+            return;
+        }
+        //Todo: check if username is unique
+
+        registerService
+            .requestRegister(username, password)
+            .then(() => {
+                navigate("/login")
+            })
+            .catch((error) => {
+            console.error("[Error]: " + error)
+        });
     }
 
     const handleUsernameChange = (event) => {
@@ -71,7 +84,7 @@ export default function RegisterPage() {
                 </Button>
 
                 <Divider sx={{width: '100%', maxWidth: 400}}/>
-                {/* Text and Login Button */}
+
                 <Box sx={{textAlign: 'center', maxWidth: 400}}>
                     <Typography variant="body1" sx={{marginBottom: 1}}>
                         Du hast schon einen Account?
@@ -79,7 +92,7 @@ export default function RegisterPage() {
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={handleLogin} // Funktion später implementieren
+                        onClick={handleLogin}
                         sx={{width: '100%'}}
                     >
                         Login
