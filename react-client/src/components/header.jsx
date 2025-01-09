@@ -2,8 +2,9 @@ import React from "react";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
 import Login from "./login.jsx";
 import {useNavigate} from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Header = () => {
+const Header = ({siteInformation}) => {
     const navigate = useNavigate()
     const handleLogin = () => {
         navigate("/login");
@@ -13,7 +14,7 @@ const Header = () => {
             <Toolbar>
                 {/* Text links */}
                 <Typography variant="h6" sx={{flexGrow: 1}}>
-                    RateEd
+                    RateEd - {siteInformation}
                 </Typography>
 
                 {/* Login-Button rechts */}
@@ -24,5 +25,9 @@ const Header = () => {
         </AppBar>
     );
 };
+
+Header.propTypes = {
+    siteInformation: PropTypes.string
+}
 
 export default Header;

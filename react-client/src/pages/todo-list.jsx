@@ -49,7 +49,7 @@ export default function TodoList() {
     return (
         <div>
             <CssBaseline/>
-            <Header/>
+            <Header siteInformation={"Todos"}/>
             <Grid
                 container
                 justifyContent="center"
