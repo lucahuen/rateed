@@ -3,13 +3,13 @@ import {Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/mat
 import Header from "../components/header";
 import {useNavigate} from "react-router-dom";
 
-export default function LoginPage() {
+export default function RegisterPage() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
 
-    const handleLogin = () => {
+    const handleRegister = () => {
         setUsername(username)
         setPassword(password)
         console.log(`username: ${username}, password: ${password}`)
@@ -23,14 +23,14 @@ export default function LoginPage() {
         setPassword(event.target.value);
     };
 
-    const handleRegister = () => {
-        navigate("/register")
+    const handleLogin = () => {
+        navigate("/login")
     }
 
     return (
         <div>
             <CssBaseline/>
-            <Header siteInformation={"Login"}/>
+            <Header siteInformation={"Register"}/>
             <Box
                 sx={{
                     display: 'flex',
@@ -64,26 +64,25 @@ export default function LoginPage() {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleLogin}
+                    onClick={handleRegister}
                     sx={{maxWidth: 400, width: '100%'}}
                 >
-                    Login
+                    Create Account
                 </Button>
 
                 <Divider sx={{width: '100%', maxWidth: 400}}/>
-
-                {/* Text and Register Button */}
+                {/* Text and Login Button */}
                 <Box sx={{textAlign: 'center', maxWidth: 400}}>
                     <Typography variant="body1" sx={{marginBottom: 1}}>
-                        Noch keinen Account?
+                        Du hast schon einen Account?
                     </Typography>
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={handleRegister} // Funktion später implementieren
+                        onClick={handleLogin} // Funktion später implementieren
                         sx={{width: '100%'}}
                     >
-                        Register
+                        Login
                     </Button>
                 </Box>
             </Box>
