@@ -8,6 +8,6 @@ todoRouter.post("/create", requestLogger, todoController.createTodo);
 
 todoRouter.get("/", requestLogger, todoController.getAllTodos);
 
-todoRouter.delete("/todos/:todoId", requestLogger, todoController.deleteTodo);
+todoRouter.delete("/:todoId", requestLogger, todoController.deleteTodo);
 
 module.exports = todoRouter;
