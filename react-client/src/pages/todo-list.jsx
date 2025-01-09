@@ -6,10 +6,19 @@ import Todo from "../components/todo";
 import AddTodo from "../components/add-todo";
 import Footer from "../components/footer";
 import {ApiContext} from "../context/api-context";
+import Cookies from "js-cookie";
+import {useNavigate} from "react-router-dom";
 
 export default function TodoList() {
     const [todos, setTodos] = useState([]);
     const {todoService} = useContext(ApiContext);
+    const navigate = useNavigate()
+    let sessionId = Cookies.get("auth")
+    if (!sessionId) {
+        navigate("/login")
+    } else {
+        console.log(sessionId)
+    }
 
     useEffect(() => {
         todoService

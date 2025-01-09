@@ -34,7 +34,7 @@ exports.handleLoginRequest = async (req, res, next) => {
         // Erfolg - Passwort und Benutzername stimmen überein
         return res.status(200).json({
             message: 'Login successful',
-            user: { id: foundUser._id, username: foundUser.username } // Rückgabe nur der nötigen Daten
+            user: {id: foundUser._id, username: foundUser.username} // Rückgabe nur der nötigen Daten
         });
     } catch (error) {
         next(error)

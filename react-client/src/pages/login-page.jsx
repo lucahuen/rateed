@@ -3,11 +3,13 @@ import {Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/mat
 import Header from "../components/header";
 import {useNavigate} from "react-router-dom";
 import {ApiContext} from "../context/api-context.jsx";
+import Cookies from "js-cookie";
 
 export default function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const {userService} = useContext(ApiContext);
+    let sessionId = Cookies.get("auth")
 
     const navigate = useNavigate()
 
@@ -18,8 +20,14 @@ export default function LoginPage() {
         // todo: implement correctly
         userService
             .requestLogin(username, password)
-            .then()
-            .catch((error)=>{
+            .then((res) => {
+                    console.log(res)
+                    Cookies.set("auth", res.user.id, {path: "/", expires: 1 / 24})
+                    sessionId = Cookies.get("auth");
+                    console.log(sessionId);
+                }
+            )
+            .catch((error) => {
                 console.error("Error:", error)
             })
 

@@ -12,7 +12,7 @@ export default class UserService {
     requestLogin = async (username, password) => {
         try {
             const response = await api.post("/api/users/login", {username, password})
-            return response.status
+            return response.data
         }catch (error){
             throw error.response.data.error.message
         }
