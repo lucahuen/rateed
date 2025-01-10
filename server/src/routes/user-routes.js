@@ -12,5 +12,9 @@ userRoutes.get("/:userId", requestLogger, userController.getUser)
 
 userRoutes.post("/:userId/updatePassword", requestLogger, userController.updatePassword)
 
+userRoutes.post("/checkPassword", requestLogger, userController.checkPassword)
+
+userRoutes.delete("/:userId", requestLogger, userController.deleteUser)
+
 
 module.exports = userRoutes;

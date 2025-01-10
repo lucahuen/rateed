@@ -1,4 +1,5 @@
 import api from "../utils/backend.js";
+import {data} from "react-router-dom";
 
 export default class UserService {
     requestRegister = async (username, password) => {
@@ -35,6 +36,18 @@ export default class UserService {
             return response.data
         } catch (error) {
             throw error.response.data.error.message
+        }
+    }
+    requestDeleteAccount = async (id, currentPassword) => {
+        try {
+            const checkResponse = await api.post("/api/users/checkPassword", {id: id, password: currentPassword})
+            if(checkResponse.data) {
+                console.log(checkResponse.data)
+                const response = await api.delete(`/api/users/${id}`)
+                return response.data
+            }
+        }catch (error){
+            throw error
         }
     }
 }

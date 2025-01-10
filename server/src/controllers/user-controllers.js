@@ -72,18 +72,18 @@ exports.getUser = async (req, res, next) => {
 exports.updatePassword = async (req, res, next) => {
     try {
         const userId = req.params.userId; // ID des Benutzers aus der URL
-        const { currentPassword, newPassword } = req.body; // Aktuelles und neues Passwort aus der Anfrage
+        const {currentPassword, newPassword} = req.body; // Aktuelles und neues Passwort aus der Anfrage
 
         // Benutzer suchen
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({ message: "Benutzer nicht gefunden." });
+            return res.status(404).json({message: "Benutzer nicht gefunden."});
         }
 
         // Überprüfen, ob das aktuelle Passwort korrekt ist
         const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
         if (!isPasswordCorrect) {
-            return res.status(400).json({ message: "Das aktuelle Passwort ist falsch." });
+            return res.status(400).json({message: "Das aktuelle Passwort ist falsch."});
         }
 
         // Neues Passwort hashen
@@ -91,12 +91,51 @@ exports.updatePassword = async (req, res, next) => {
 
         // Passwort aktualisieren
         await User.updateOne(
-            { _id: userId }, // Filterkriterium
-            { $set: { password: hashedPassword } } // Zu aktualisierendes Feld
+            {_id: userId}, // Filterkriterium
+            {$set: {password: hashedPassword}} // Zu aktualisierendes Feld
         );
 
-        res.status(200).json({ message: "Passwort erfolgreich aktualisiert." });
+        res.status(200).json({message: "Passwort erfolgreich aktualisiert."});
     } catch (error) {
         next(error);
     }
 };
+
+exports.checkPassword = async (req, res, next) => {
+    try {
+        const userId = req.body.id
+        const enteredPassword = req.body.password
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({message: "Benutzer nicht gefunden."});
+        }
+        const isPasswordCorrect = await bcrypt.compare(enteredPassword, user.password);
+        if (!isPasswordCorrect) {
+            return res.status(400).json({message: "Das aktuelle Passwort ist falsch."});
+        } else {
+            return res.status(200).json({message: "Das Passwort ist korrekt", data: true})
+        }
+    }catch (error){
+        next(error)
+    }
+}
+
+exports.deleteUser = async(req, res, next) => {
+    const userId = req.params.userId;
+    try {
+        const deletedUser = await User.findByIdAndDelete(userId);
+
+        if (!deletedUser) {
+            const error = new Error(`User not found with id: ${userId}`);
+            error.status = 404;
+            throw error;
+        }
+
+        return res.status(200).json({
+            message: `User with id ${userId} successfully deleted.`,
+            data: deletedUser,
+        });
+    } catch (error) {
+        next(error);
+    }
+}

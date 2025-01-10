@@ -54,10 +54,30 @@ export default function ProfilePage() {
             });
     };
 
+    const deleteProfile = () => {
+        if (!currentPassword) {
+            setErrorMessage("Bitte gib dein akutelles Passwort ein.");
+            return;
+        }
+        userService
+            .requestDeleteAccount(sessionId, currentPassword)
+            .then(() => {
+                Cookies.remove("auth");
+                navigate("/login");
+            })
+            .catch((error) => {
+                if (error.status === 400) {
+                    setErrorMessage("Passwort ist falsch")
+                } else {
+                    setErrorMessage("Fehler beim Löschen des Accounts.");
+                }
+            });
+    };
+
     return (
         <div>
-            <Header siteInformation={"Dein Profil"} />
-            <Box sx={{ padding: 3, maxWidth: 400, margin: "auto" }}>
+            <Header siteInformation={"Dein Profil"}/>
+            <Box sx={{padding: 3, maxWidth: 400, margin: "auto"}}>
                 <Typography variant="h5" gutterBottom>
                     Profil
                 </Typography>
@@ -82,7 +102,7 @@ export default function ProfilePage() {
                                     onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                                     edge="end"
                                 >
-                                    {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
+                                    {showCurrentPassword ? <VisibilityOff/> : <Visibility/>}
                                 </IconButton>
                             </InputAdornment>
                         )
@@ -102,7 +122,7 @@ export default function ProfilePage() {
                                     onClick={() => setShowNewPassword(!showNewPassword)}
                                     edge="end"
                                 >
-                                    {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                                    {showNewPassword ? <VisibilityOff/> : <Visibility/>}
                                 </IconButton>
                             </InputAdornment>
                         )
@@ -113,9 +133,18 @@ export default function ProfilePage() {
                     color="primary"
                     fullWidth
                     onClick={handlePasswordChange}
-                    sx={{ marginTop: 2 }}
+                    sx={{marginTop: 2}}
                 >
                     Passwort ändern
+                </Button>
+                <Button
+                    variant="outlined"
+                    color="error"
+                    fullWidth
+                    onClick={deleteProfile}
+                    sx={{marginTop: 2}}
+                >
+                    Account löschen
                 </Button>
             </Box>
         </div>

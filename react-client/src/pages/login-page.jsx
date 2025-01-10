@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/material";
 import Header from "../components/header";
 import {useNavigate} from "react-router-dom";
 import {ApiContext} from "../context/api-context.jsx";
@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 export default function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(null);
     const {userService} = useContext(ApiContext);
     let sessionId = Cookies.get("auth")
 
@@ -23,6 +24,7 @@ export default function LoginPage() {
                 }
             )
             .catch((error) => {
+                setErrorMessage("Etwas ist schief gelaufen")
                 console.error("Error:", error)
             })
 
@@ -54,6 +56,8 @@ export default function LoginPage() {
                     padding: 2
                 }}
             >
+                {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+
                 <TextField
                     placeholder={"Username"}
                     value={username}
