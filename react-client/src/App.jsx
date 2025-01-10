@@ -7,13 +7,14 @@ import Header from './components/header';
 import {ApiProvider} from './context/api-context';
 import RegisterPage from "./pages/register-page.jsx";
 import ProfilePage from "./pages/profile-page.jsx";
+import LandingPage from "./pages/landing-page.jsx";
 
 function App() {
     return (
         <ApiProvider>
             <Router>
                 <Routes>
-                    <Route path="/" element={<Header siteInformation={"Startseite"}/>}/>
+                    <Route path="/" element={<LandingPage/>}/>
                     <Route path="/todos" element={<TodoList/>}/>
 
                     {/*LOGIN AND REGISTER*/}

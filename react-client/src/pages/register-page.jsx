@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/material";
 import Header from "../components/header";
 import {useNavigate} from "react-router-dom";
 import {ApiContext} from "../context/api-context.jsx";
@@ -7,6 +7,7 @@ import {ApiContext} from "../context/api-context.jsx";
 export default function RegisterPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(null);
     const {userService} = useContext(ApiContext);
 
     const navigate = useNavigate()
@@ -14,10 +15,9 @@ export default function RegisterPage() {
     const handleRegister = () => {
 
         if (!username || !password) {
-            console.error("Bitte füllen Sie beide Felder aus.");
+            setErrorMessage("Bitte füllen Sie beide Felder aus.");
             return;
         }
-        //Todo: check if username is unique
 
         userService
             .requestRegister(username, password)
@@ -50,11 +50,15 @@ export default function RegisterPage() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: '100vh',
+                    height: '80vh',
                     gap: 2,
                     padding: 2
                 }}
             >
+                <h1 style={{fontSize: "2rem", margin: "20px 0"}}>Register below</h1>
+
+                {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+
                 <TextField
                     placeholder={"Username"}
                     value={username}

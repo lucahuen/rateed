@@ -42,7 +42,10 @@ export default function LoginPage() {
     }
 
     return (
-        <div>
+        <div style={{
+            textAlign: "center",
+            fontFamily: "Arial, Helvetica, sans-serif"
+        }}>
             <CssBaseline/>
             <Header siteInformation={"Login"}/>
             <Box
@@ -51,11 +54,13 @@ export default function LoginPage() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: '100vh',
+                    height: '80vh',
                     gap: 2,
                     padding: 2
                 }}
             >
+                <h1 style={{fontSize: "2rem", margin: "20px 0"}}>Login below</h1>
+
                 {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
                 <TextField
