@@ -6,6 +6,7 @@ import CourseList from './pages/course-list';
 import Header from './components/header';
 import {ApiProvider} from './context/api-context';
 import RegisterPage from "./pages/register-page.jsx";
+import ProfilePage from "./pages/profile-page.jsx";
 
 function App() {
     return (
@@ -18,6 +19,9 @@ function App() {
                     {/*LOGIN AND REGISTER*/}
                     <Route path="/login" element={<LoginPage/>}/>
                     <Route path="/register" element={<RegisterPage/>}/>
+
+                    {/*PROFILE*/}
+                    <Route path={"/profile"} element={<ProfilePage/>}/>
 
                     <Route path="/courses" element={<CourseList/>}/>
                     <Route path="*" element={<h1>404 - Seite nicht gefunden</h1>}/>

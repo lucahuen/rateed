@@ -1,5 +1,5 @@
 import React from "react";
-import {AppBar, Box, Button, ButtonBase, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, ButtonBase, Divider, Toolbar, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
@@ -17,6 +17,10 @@ const Header = ({siteInformation}) => {
 
     const handleHomepage = () => {
         navigate("/")
+    }
+
+    const handleProfileNav = () => {
+        navigate("/profile")
     }
 
     return (
@@ -48,21 +52,39 @@ const Header = ({siteInformation}) => {
                 {/* LoginButton-Button rechts */}
                 <Box sx={{marginLeft: "auto"}}>
                     {sessionId ? (
-                        <Button
-                            variant="contained"
-                            onClick={handleLogout}
-                            sx={{
-                                backgroundColor: 'white',
-                                color: 'black',
-                                fontWeight: 'bold',
-                                '&:hover': {
-                                    backgroundColor: '#f5f5f5', // leicht grauer Hover-Effekt
-                                },
-                                border: '1px solid black' // optional, um den Button hervorzuheben
-                            }}
-                        >
-                            Logout
-                        </Button>
+                        <Box>
+                            <Button
+                                variant="contained"
+                                onClick={handleProfileNav}
+                                sx={{
+                                    backgroundColor: 'white',
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                    marginRight: 1,
+                                    '&:hover': {
+                                        backgroundColor: '#f5f5f5', // leicht grauer Hover-Effekt
+                                    },
+                                    border: '1px solid black' // optional, um den Button hervorzuheben
+                                }}
+                            >
+                                Profil
+                            </Button>
+                            <Button
+                                variant="contained"
+                                onClick={handleLogout}
+                                sx={{
+                                    backgroundColor: 'white',
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                    '&:hover': {
+                                        backgroundColor: '#f5f5f5', // leicht grauer Hover-Effekt
+                                    },
+                                    border: '1px solid black' // optional, um den Button hervorzuheben
+                                }}
+                            >
+                                Logout
+                            </Button>
+                        </Box>
                     ) : (
                         <Button
                             variant="contained"

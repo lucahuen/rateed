@@ -14,17 +14,12 @@ export default function LoginPage() {
     const navigate = useNavigate()
 
     const handleLogin = () => {
-        // setUsername(username)
-        // setPassword(password)
-        // console.log(`username: ${username}, password: ${password}`)
-        // todo: implement correctly
         userService
             .requestLogin(username, password)
             .then((res) => {
-                    console.log(res)
                     Cookies.set("auth", res.user.id, {path: "/", expires: 1 / 24})
                     sessionId = Cookies.get("auth");
-                    console.log(sessionId);
+                    navigate("/")
                 }
             )
             .catch((error) => {
