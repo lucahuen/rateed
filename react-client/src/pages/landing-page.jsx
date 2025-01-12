@@ -12,7 +12,11 @@ export default function LandingPage() {
     const [searchInput, setSearchInput] = useState("");
 
     const handleSearch = () => {
-        navigate(`/courses?query=${encodeURIComponent(searchInput)}`);
+        if (searchInput) {
+            navigate(`/courses?query=${encodeURIComponent(searchInput)}`);
+        }else {
+            navigate("/courses")
+        }
     };
 
     const sessionId = Cookies.get("auth");

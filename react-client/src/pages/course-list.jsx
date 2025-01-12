@@ -20,18 +20,17 @@ export default function CourseList() {
     const {courseService} = useContext(ApiContext);
 
     useEffect(() => {
-        if (initialQuery) {
-            // Führe Suche aus, wenn ein Query-Parameter vorhanden ist
-            courseService
-                .requestCoursesByQueryName(initialQuery)
-                .then((res) => {
-                    setCourses(res.data);
-                    initialQuery = "";
-                })
-                .catch((error) => {
-                    console.error("[Error]: " + error);
-                });
-        }
+        // Führe Suche aus, wenn ein Query-Parameter vorhanden ist
+        courseService
+            .requestCoursesByQueryName(initialQuery)
+            .then((res) => {
+                setCourses(res.data);
+                initialQuery = "";
+            })
+            .catch((error) => {
+                console.error("[Error]: " + error);
+            });
+
     }, [initialQuery, courseService]);
 
     const handleDeleteCourse = (id) => {

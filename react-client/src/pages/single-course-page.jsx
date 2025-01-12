@@ -30,7 +30,7 @@ export default function SingleCoursePage() {
     return (
         <div>
             <CssBaseline />
-            <Header siteInformation={`Kurs mit id: ${courseId}`} />
+            <Header siteInformation={`Kurs: ${course.name}`} />
             <Container maxWidth="md" sx={{ mt: 4 }}>
                 {course ? (
                     <Box
