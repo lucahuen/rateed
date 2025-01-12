@@ -12,4 +12,6 @@ courseRouter.delete("/:courseId", requestLogger, courseController.deleteCourse);
 
 courseRouter.get("/:name", requestLogger, courseController.getCourseByName);
 
+courseRouter.get("/q/:query", requestLogger, courseController.getCoursesByQueryName);
+
 module.exports = courseRouter;

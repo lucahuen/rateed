@@ -38,7 +38,15 @@ export default class CourseService {
     };
 
     requestCoursesByQueryName = async (query) => {
-        //todo:
-        return query
+        try {
+            if (query) {
+                const response = await api.get(`api/courses/q/${query}`);
+                return response.data;
+            }else {
+                return this.requestAllCourses();
+            }
+        } catch (error) {
+            throw error.response.data.message;
+        }
     }
 }

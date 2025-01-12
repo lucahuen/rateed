@@ -29,7 +29,7 @@ exports.getAllCourses = async (_, res, next) => {
 exports.getCourseByName = async (req, res, next) => {
     try {
         const name = req.params.name; // Kursname aus den URL-Parametern holen
-        const foundCourse = await Course.findOne({ name }); // Suche nach Kursname
+        const foundCourse = await Course.findOne({name}); // Suche nach Kursname
 
         if (!foundCourse) {
             return res.status(404).json({
@@ -45,6 +45,23 @@ exports.getCourseByName = async (req, res, next) => {
         next(error); // Fehler an Middleware weiterleiten
     }
 };
+
+exports.getCoursesByQueryName = async (req, res, next) => {
+    try {
+        const query = req.params.query;
+
+        const regex = new RegExp(`^${query}`, 'i');
+
+        const foundCourses = await Course.find({name: regex});
+
+        return res.status(200).json({
+            message: 'Success',
+            data: foundCourses
+        });
+    } catch (error) {
+        next(error);
+    }
+}
 
 exports.deleteCourse = async (req, res, next) => {
     const courseId = req.params.todoId;

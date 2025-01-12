@@ -49,15 +49,21 @@ export default function CourseList() {
             });
     };
 
-    const handleSearch = () => {
+    const handleSearchBarInputChange = (e) => {
+        const inputValue = e; // Der aktuelle Eingabewert
+        setSearchInput(inputValue);
+        handleSearch(inputValue); // Übergibt den aktuellen Wert direkt an die Suche
+    };
+
+    const handleSearch = (query) => {
         courseService
-            .requestCourseByName(searchInput)
+            .requestCoursesByQueryName(query) // Nutzt den aktuellen Wert aus dem Parameter
             .then((res) => {
-                console.log(res)
-                setCourses([res.data])
-            }).catch((error) => {
-                console.error("[Error]: " + error)
-        })
+                setCourses(res.data);
+            })
+            .catch((error) => {
+                console.error("[Error]: " + error);
+            });
     };
 
     return (
@@ -84,7 +90,7 @@ export default function CourseList() {
                         <Divider/>
                         <Searchbar
                             searchInput={searchInput}
-                            onInputChange={setSearchInput}
+                            onInputChange={handleSearchBarInputChange}
                             onSearch={handleSearch}/>
                         <Divider/>
                         <Course courses={courses} handleDeleteCourse={handleDeleteCourse}/>
