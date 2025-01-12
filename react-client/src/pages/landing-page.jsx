@@ -9,9 +9,10 @@ import Searchbar from "../components/searchbar.jsx";
 export default function LandingPage() {
     const navigate = useNavigate();
     const {userService} = useContext(ApiContext);
+    const [searchInput, setSearchInput] = useState("");
 
-    const handleGetStarted = () => {
-        navigate("/login");
+    const handleSearch = () => {
+        navigate(`/courses?query=${encodeURIComponent(searchInput)}`);
     };
 
     const sessionId = Cookies.get("auth");
@@ -80,7 +81,11 @@ export default function LandingPage() {
                         GET STARTED
                     </button>
                 ) : (
-                    <Searchbar/>
+                    <Searchbar
+                        searchInput={searchInput}
+                        onInputChange={setSearchInput}
+                        onSearch={handleSearch}
+                    />
                 )}
             </div>
         </div>

@@ -7,23 +7,31 @@ import AddCourse from "../components/add-course";
 import Footer from "../components/footer";
 import {ApiContext} from "../context/api-context";
 import Searchbar from "../components/searchbar.jsx";
+import {useLocation} from "react-router-dom";
 
 export default function CourseList() {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const initialQuery = queryParams.get("query") || ""; // Default ist ein leerer String
+
     let [courses, setCourses] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
     const {courseService} = useContext(ApiContext);
 
     useEffect(() => {
-        courseService
-            .requestAllCourses()
-            .then((res) => {
-                setCourses(res.data);
-            })
-            .catch((error) => {
-                console.error("[Error]: " + error);
-            });
-    }, []);
+        if (initialQuery) {
+            // Führe Suche aus, wenn ein Query-Parameter vorhanden ist
+            courseService
+                .requestCoursesByQueryName(initialQuery)
+                .then((res) => {
+                    setCourses(res.data);
+                })
+                .catch((error) => {
+                    console.error("[Error]: " + error);
+                });
+        }
+    }, [initialQuery, courseService]);
 
     const handleDeleteCourse = (id) => {
         courseService
