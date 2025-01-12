@@ -6,9 +6,12 @@ import Course from "../components/course";
 import AddCourse from "../components/add-course";
 import Footer from "../components/footer";
 import {ApiContext} from "../context/api-context";
+import Searchbar from "../components/searchbar.jsx";
 
 export default function CourseList() {
-    const [courses, setCourses] = useState([]);
+    let [courses, setCourses] = useState([]);
+    const [searchInput, setSearchInput] = useState('');
+
     const {courseService} = useContext(ApiContext);
 
     useEffect(() => {
@@ -46,6 +49,17 @@ export default function CourseList() {
             });
     };
 
+    const handleSearch = () => {
+        courseService
+            .requestCourseByName(searchInput)
+            .then((res) => {
+                console.log(res)
+                setCourses([res.data])
+            }).catch((error) => {
+                console.error("[Error]: " + error)
+        })
+    };
+
     return (
         <div>
             <CssBaseline/>
@@ -67,7 +81,12 @@ export default function CourseList() {
                         </Typography>
                         <Divider/>
                         <AddCourse handleAddCourse={handleAddCourse}/>
-
+                        <Divider/>
+                        <Searchbar
+                            searchInput={searchInput}
+                            onInputChange={setSearchInput}
+                            onSearch={handleSearch}/>
+                        <Divider/>
                         <Course courses={courses} handleDeleteCourse={handleDeleteCourse}/>
                     </Grid>
                 </Grid>

@@ -8,13 +8,13 @@ const ApiContext = createContext(null);
 const ApiProvider = ({children}) => {
     const todoService = new TodoService();
     const courseService = new CourseService();
-    const userService = new UserService()
+    const userService = new UserService();
 
     return (
         <ApiContext.Provider value={{
             todoService,
             courseService,
-            userService
+            userService,
         }}>
             {children}
         </ApiContext.Provider>

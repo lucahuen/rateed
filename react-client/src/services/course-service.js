@@ -27,4 +27,13 @@ export default class CourseService {
             throw error.response.data.error.message;
         }
     };
+
+    requestCourseByName = async (query) => {
+        try {
+            const response = await api.get(`/api/courses/${query}`);
+            return response.data;
+        } catch (error) {
+            throw error.response.data.error.message;
+        }
+    };
 }

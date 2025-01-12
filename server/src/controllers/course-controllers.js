@@ -28,7 +28,7 @@ exports.getAllCourses = async (_, res, next) => {
 
 exports.courseByName = async (req, res, next) => {
     try {
-        const { name } = req.params; // Kursname aus den URL-Parametern holen
+        const name = req.params.name; // Kursname aus den URL-Parametern holen
         const foundCourse = await Course.findOne({ name }); // Suche nach Kursname
 
         if (!foundCourse) {
