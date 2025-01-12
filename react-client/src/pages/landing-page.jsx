@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import Header from "../components/header.jsx";
 import Cookies from "js-cookie";
 import {ApiContext} from "../context/api-context.jsx";
-import {Box, CssBaseline} from "@mui/material";
+import {CssBaseline} from "@mui/material";
 import Searchbar from "../components/searchbar.jsx";
 
 export default function LandingPage() {
@@ -26,6 +26,10 @@ export default function LandingPage() {
                 console.log(error);
             });
     }, [sessionId, userService]);
+
+    const handleGetStarted = () => {
+        navigate("/login")
+    }
 
     return (
         <div>

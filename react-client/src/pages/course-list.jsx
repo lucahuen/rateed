@@ -12,7 +12,7 @@ import {useLocation} from "react-router-dom";
 export default function CourseList() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const initialQuery = queryParams.get("query") || ""; // Default ist ein leerer String
+    let initialQuery = queryParams.get("query") || ""; // Default ist ein leerer String
 
     let [courses, setCourses] = useState([]);
     const [searchInput, setSearchInput] = useState('');
@@ -26,6 +26,7 @@ export default function CourseList() {
                 .requestCoursesByQueryName(initialQuery)
                 .then((res) => {
                     setCourses(res.data);
+                    initialQuery = "";
                 })
                 .catch((error) => {
                     console.error("[Error]: " + error);
@@ -60,8 +61,12 @@ export default function CourseList() {
     const handleSearchBarInputChange = (e) => {
         const inputValue = e; // Der aktuelle Eingabewert
         setSearchInput(inputValue);
-        handleSearch(inputValue); // Übergibt den aktuellen Wert direkt an die Suche
+        handleSearch(inputValue)
     };
+
+    const handleSearchBarClick = () => {
+        handleSearch(searchInput)
+    }
 
     const handleSearch = (query) => {
         courseService
@@ -99,7 +104,7 @@ export default function CourseList() {
                         <Searchbar
                             searchInput={searchInput}
                             onInputChange={handleSearchBarInputChange}
-                            onSearch={handleSearch}/>
+                            onSearch={handleSearchBarClick}/>
                         <Divider/>
                         <Course courses={courses} handleDeleteCourse={handleDeleteCourse}/>
                     </Grid>
