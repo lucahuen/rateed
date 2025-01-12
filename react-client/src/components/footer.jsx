@@ -21,7 +21,7 @@ const Footer = () => {
                         {" Copyright @ "}
                         <Link
                             color="inherit"
-                            href="https://www.uni-due.de/soco"
+                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                             target="_blank"
                         >
                             Kidneyrock 2
@@ -38,14 +38,14 @@ const Footer = () => {
                         <IconButton
                             onClick={() =>
                                 window.open(
-                                    "https://www.youtube.com/channel/UCQV36Dfq-mfmAG0SqrQ_QbA"
+                                    "https://www.youtube.com/watch?v=jfiCBFNIpTI&feature=youtu.be"
                                 )
                             }
                         >
                             <YouTubeIcon/>
                         </IconButton>
                         <IconButton
-                            onClick={() => window.open("https://github.com/ude-soco")}
+                            onClick={() => window.open("https://github.com/lucahuen/rateed")}
                         >
                             <GitHubIcon/>
                         </IconButton>

@@ -5,8 +5,10 @@ import Cookies from "js-cookie";
 import {ApiContext} from "../context/api-context.jsx";
 import {CssBaseline} from "@mui/material";
 import Searchbar from "../components/searchbar.jsx";
+import {useTheme} from "@mui/material/styles";
 
 export default function LandingPage() {
+    const theme = useTheme();
     const navigate = useNavigate();
     const {userService} = useContext(ApiContext);
     const [searchInput, setSearchInput] = useState("");
@@ -73,7 +75,7 @@ export default function LandingPage() {
                         style={{
                             fontSize: "1.2rem",
                             padding: "12px 30px",
-                            backgroundColor: "primary",
+                            backgroundColor: theme.palette.primary.main,
                             color: "#fff",
                             border: "none",
                             borderRadius: "8px",
@@ -82,11 +84,11 @@ export default function LandingPage() {
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
                         }}
                         onMouseOver={(e) => {
-                            e.target.style.backgroundColor = "primary.dark";
+                            e.target.style.backgroundColor = theme.palette.primary.dark;
                             e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
                         }}
                         onMouseOut={(e) => {
-                            e.target.style.backgroundColor = "primary.main";
+                            e.target.style.backgroundColor = theme.palette.primary.main;
                             e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
                         }}
                     >
@@ -104,7 +106,7 @@ export default function LandingPage() {
                             style={{
                                 fontSize: "1.2rem",
                                 padding: "12px 30px",
-                                backgroundColor: "primary",
+                                backgroundColor: theme.palette.primary.main,
                                 color: "#fff",
                                 border: "none",
                                 borderRadius: "8px",
@@ -113,11 +115,11 @@ export default function LandingPage() {
                                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
                             }}
                             onMouseOver={(e) => {
-                                e.target.style.backgroundColor = "primary.dark";
+                                e.target.style.backgroundColor = theme.palette.primary.dark;
                                 e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
                             }}
                             onMouseOut={(e) => {
-                                e.target.style.backgroundColor = "primary";
+                                e.target.style.backgroundColor = theme.palette.primary.main;
                                 e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
                             }}
                         >
