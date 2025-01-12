@@ -64,7 +64,7 @@ exports.getCoursesByQueryName = async (req, res, next) => {
 }
 
 exports.deleteCourse = async (req, res, next) => {
-    const courseId = req.params.todoId;
+    const courseId = req.params.courseId;
     try {
         const deletedCourse = await Course.findByIdAndDelete(courseId);
 
@@ -82,3 +82,18 @@ exports.deleteCourse = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.getCourseById = async (req, res, next) => {
+    const courseId = req.params.courseId;
+    try {
+        const foundCourse = await Course.findById(courseId);
+        if (foundCourse) {
+            return res.status(200).json({
+                message: `Course with id: ${courseId} found`,
+                data: foundCourse,
+            })
+        }
+    } catch (error) {
+        next(error)
+    }
+}

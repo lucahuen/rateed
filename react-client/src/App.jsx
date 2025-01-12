@@ -8,6 +8,7 @@ import {ApiProvider} from './context/api-context';
 import RegisterPage from "./pages/register-page.jsx";
 import ProfilePage from "./pages/profile-page.jsx";
 import LandingPage from "./pages/landing-page.jsx";
+import SingleCoursePage from "./pages/single-course-page.jsx";
 
 function App() {
     return (
@@ -25,6 +26,8 @@ function App() {
                     <Route path={"/profile"} element={<ProfilePage/>}/>
 
                     <Route path="/courses" element={<CourseList/>}/>
+                    <Route path="/courses/course" element={<SingleCoursePage/>}/>
+
                     <Route path="*" element={<h1>404 - Seite nicht gefunden</h1>}/>
                 </Routes>
             </Router>

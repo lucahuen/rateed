@@ -8,6 +8,8 @@ courseRouter.post("/create", requestLogger, courseController.createCourse);
 
 courseRouter.get("/", requestLogger, courseController.getAllCourses);
 
+courseRouter.get("/course/:courseId", requestLogger, courseController.getCourseById);
+
 courseRouter.delete("/:courseId", requestLogger, courseController.deleteCourse);
 
 courseRouter.get("/:name", requestLogger, courseController.getCourseByName);

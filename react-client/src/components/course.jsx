@@ -1,10 +1,15 @@
 import React from "react";
-import {Card, CardHeader, IconButton, Typography} from "@mui/material";
+import {Button, Card, CardHeader, IconButton, Typography} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {useNavigate} from "react-router-dom";
 
 // * Course component
-const Course = (props) => {
-    const {courses, handleDeleteCourse} = props;
+const Course = ({courses, handleDeleteCourse}) => {
+    const navigate = useNavigate();
+
+    const handleGetToCourse = (id) => {
+        navigate(`/courses/course?query=${encodeURIComponent(id)}`);
+    }
 
     return (
         <>
@@ -26,7 +31,7 @@ const Course = (props) => {
                         elevation="0"
                     >
                         <CardHeader
-                            title={<Typography key={course.id}>{course.name}</Typography>}
+                            title={<Button key={course.id} onClick={() => handleGetToCourse(course._id)}>{course.name}</Button>}
                             action={
                                 <IconButton
                                     color="error"

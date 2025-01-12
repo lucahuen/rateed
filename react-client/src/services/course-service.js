@@ -10,6 +10,15 @@ export default class CourseService {
         }
     };
 
+    requestCourseById = async (id) => {
+        try {
+            const response = await api.get(`/api/courses/course/${id}`);
+            return response.data;
+        }catch (e){
+            throw e.response.data.error.message;
+        }
+    }
+
     requestCreateCourse = async (name, semester) => {
         try {
             const response = await api.post("/api/courses/create", {name, semester});
