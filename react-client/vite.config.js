@@ -5,14 +5,14 @@ export default defineConfig({
     server: {
         port: 5173,
         proxy: {
-            '/api': { // Passe den Proxy-Pfad spezifischer an
+            '/api': {
                 target: 'http://localhost:3000',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ''), // Entferne '/api'
             },
         },
         watch: {
-            usePolling: true, // Falls das Dateisystem Probleme macht
+            usePolling: true,
         },
     },
     plugins: [react()],

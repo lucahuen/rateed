@@ -32,14 +32,6 @@ const Course = ({courses, handleDeleteCourse}) => {
                     >
                         <CardHeader
                             title={<Button key={course.id} onClick={() => handleGetToCourse(course._id)}>{course.name}</Button>}
-                            action={
-                                <IconButton
-                                    color="error"
-                                    onClick={() => handleDeleteCourse(course._id)}
-                                >
-                                    <DeleteIcon/>
-                                </IconButton>
-                            }
                         />
                     </Card>
                 );

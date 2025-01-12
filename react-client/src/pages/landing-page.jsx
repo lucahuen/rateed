@@ -14,7 +14,7 @@ export default function LandingPage() {
     const handleSearch = () => {
         if (searchInput) {
             navigate(`/courses?query=${encodeURIComponent(searchInput)}`);
-        }else {
+        } else {
             navigate("/courses")
         }
     };
@@ -33,6 +33,10 @@ export default function LandingPage() {
 
     const handleGetStarted = () => {
         navigate("/login")
+    }
+
+    const handleGetToAllCourses = () => {
+        navigate("/courses")
     }
 
     return (
@@ -89,13 +93,40 @@ export default function LandingPage() {
                         GET STARTED
                     </button>
                 ) : (
-                    <Searchbar
-                        searchInput={searchInput}
-                        onInputChange={setSearchInput}
-                        onSearch={handleSearch}
-                    />
+                    <div>
+                        <Searchbar
+                            searchInput={searchInput}
+                            onInputChange={setSearchInput}
+                            onSearch={handleSearch}
+                        />
+                        <button
+                            onClick={handleGetToAllCourses}
+                            style={{
+                                fontSize: "1.2rem",
+                                padding: "12px 30px",
+                                backgroundColor: "#007BFF",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
+                            }}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = "#0056b3";
+                                e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = "#007BFF";
+                                e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+                            }}
+                        >
+                            ALLE KURSE
+                        </button>
+                    </div>
                 )}
             </div>
         </div>
-    );
+    )
+        ;
 }

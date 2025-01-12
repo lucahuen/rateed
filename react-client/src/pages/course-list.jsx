@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {CssBaseline, Typography, Divider} from "@mui/material";
+import {CssBaseline, Typography, Divider, Button} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Header from "../components/header";
 import Course from "../components/course";
@@ -7,17 +7,18 @@ import AddCourse from "../components/add-course";
 import Footer from "../components/footer";
 import {ApiContext} from "../context/api-context";
 import Searchbar from "../components/searchbar.jsx";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function CourseList() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let initialQuery = queryParams.get("query") || ""; // Default ist ein leerer String
 
-    let [courses, setCourses] = useState([]);
+    const [courses, setCourses] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
     const {courseService} = useContext(ApiContext);
+    const navigate = useNavigate(); // Hier wird der useNavigate-Hook verwendet
 
     useEffect(() => {
         // Führe Suche aus, wenn ein Query-Parameter vorhanden ist
@@ -78,6 +79,14 @@ export default function CourseList() {
             });
     };
 
+    const handleNavigateToAddCourse = () => {
+        navigate("/courses/add"); // Navigiert zur URL "/courses/add"
+    };
+
+    const handleBack = () => {
+        navigate("/")
+    }
+
     return (
         <div>
             <CssBaseline/>
@@ -94,18 +103,40 @@ export default function CourseList() {
                         sx={{p: 4, borderRadius: 2, border: "3px solid #d6d4d4"}}
                         spacing={1}
                     >
-                        <Typography variant="h5" align="center">
-                            Well just add a Course you dumb fuck should i explain it to you or what?
-                        </Typography>
-                        <Divider/>
-                        <AddCourse handleAddCourse={handleAddCourse}/>
-                        <Divider/>
                         <Searchbar
                             searchInput={searchInput}
                             onInputChange={handleSearchBarInputChange}
                             onSearch={handleSearchBarClick}/>
                         <Divider/>
                         <Course courses={courses} handleDeleteCourse={handleDeleteCourse}/>
+
+                        {/* Button zur AddCourse-Seite */}
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleNavigateToAddCourse}
+                            sx={{
+                                marginTop: 2,
+                                padding: "10px 20px",
+                                fontSize: "1rem",
+                                borderRadius: "8px",
+                            }}
+                        >
+                            Kurs hinzufügen
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleBack}
+                            sx={{
+                                marginTop: 2,
+                                padding: "10px 20px",
+                                fontSize: "1rem",
+                                borderRadius: "8px",
+                            }}
+                        >
+                            Zurück zur Startseite
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>

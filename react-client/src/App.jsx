@@ -9,6 +9,7 @@ import RegisterPage from "./pages/register-page.jsx";
 import ProfilePage from "./pages/profile-page.jsx";
 import LandingPage from "./pages/landing-page.jsx";
 import SingleCoursePage from "./pages/single-course-page.jsx";
+import AddCoursePage from "./pages/add-course-page.jsx";
 
 function App() {
     return (
@@ -25,9 +26,12 @@ function App() {
                     {/*PROFILE*/}
                     <Route path={"/profile"} element={<ProfilePage/>}/>
 
+                    {/*COURSES*/}
                     <Route path="/courses" element={<CourseList/>}/>
                     <Route path="/courses/course" element={<SingleCoursePage/>}/>
+                    <Route path="/courses/add" element={<AddCoursePage/>}/>
 
+                    {/*404*/}
                     <Route path="*" element={<h1>404 - Seite nicht gefunden</h1>}/>
                 </Routes>
             </Router>
