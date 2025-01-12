@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {ApiContext} from "../context/api-context.jsx";
-import {Box, TextField, Button, Typography, Alert, IconButton, InputAdornment} from "@mui/material";
+import {Box, TextField, Button, Typography, Alert, IconButton, InputAdornment, CssBaseline} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export default function ProfilePage() {
@@ -76,6 +76,7 @@ export default function ProfilePage() {
 
     return (
         <div>
+            <CssBaseline/>
             <Header siteInformation={"Dein Profil"}/>
             <Box sx={{padding: 3, maxWidth: 400, margin: "auto"}}>
                 <Typography variant="h5" gutterBottom>
