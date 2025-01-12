@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTheme } from '@mui/material/styles'; // useTheme Hook importieren
 
 const SearchBar = ({ searchInput, onInputChange, onSearch }) => {
+    const theme = useTheme(); // Zugriff auf das aktuelle Theme
+
     return (
         <div style={{
             display: 'flex',
@@ -23,7 +26,7 @@ const SearchBar = ({ searchInput, onInputChange, onSearch }) => {
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                     transition: 'all 0.3s ease',
                 }}
-                onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+                onFocus={(e) => e.target.style.borderColor = theme.palette.primary.main} // Setze den Fokusrahmen zur primary Farbe
                 onBlur={(e) => e.target.style.borderColor = '#ccc'}
             />
             <button
@@ -33,18 +36,18 @@ const SearchBar = ({ searchInput, onInputChange, onSearch }) => {
                     fontSize: '1rem',
                     border: 'none',
                     borderRadius: '0 8px 8px 0',
-                    backgroundColor: '#007BFF',
+                    backgroundColor: theme.palette.primary.main, // Verwende die primary Farbe für den Button-Hintergrund
                     color: '#fff',
                     cursor: 'pointer',
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                     transition: 'all 0.3s ease',
                 }}
                 onMouseOver={(e) => {
-                    e.target.style.backgroundColor = '#0056b3';
+                    e.target.style.backgroundColor = theme.palette.primary.dark; // Verwende die dunkle primary Farbe im Hover-Zustand
                     e.target.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
                 }}
                 onMouseOut={(e) => {
-                    e.target.style.backgroundColor = '#007BFF';
+                    e.target.style.backgroundColor = theme.palette.primary.main; // Setze die ursprüngliche Farbe zurück
                     e.target.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
                 }}
             >

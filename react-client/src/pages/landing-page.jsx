@@ -56,7 +56,7 @@ export default function LandingPage() {
                     margin: "20px 0",
                     marginTop: "25vh",
                     fontWeight: "bold",
-                    color: "#004AAD"
+                    color: "primary"
                 }}>
                     RateEd
                 </h1>
@@ -73,7 +73,7 @@ export default function LandingPage() {
                         style={{
                             fontSize: "1.2rem",
                             padding: "12px 30px",
-                            backgroundColor: "#007BFF",
+                            backgroundColor: "primary",
                             color: "#fff",
                             border: "none",
                             borderRadius: "8px",
@@ -82,11 +82,11 @@ export default function LandingPage() {
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
                         }}
                         onMouseOver={(e) => {
-                            e.target.style.backgroundColor = "#0056b3";
+                            e.target.style.backgroundColor = "primary.dark";
                             e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
                         }}
                         onMouseOut={(e) => {
-                            e.target.style.backgroundColor = "#007BFF";
+                            e.target.style.backgroundColor = "primary.main";
                             e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
                         }}
                     >
@@ -104,7 +104,7 @@ export default function LandingPage() {
                             style={{
                                 fontSize: "1.2rem",
                                 padding: "12px 30px",
-                                backgroundColor: "#007BFF",
+                                backgroundColor: "primary",
                                 color: "#fff",
                                 border: "none",
                                 borderRadius: "8px",
@@ -113,11 +113,11 @@ export default function LandingPage() {
                                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
                             }}
                             onMouseOver={(e) => {
-                                e.target.style.backgroundColor = "#0056b3";
+                                e.target.style.backgroundColor = "primary.dark";
                                 e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
                             }}
                             onMouseOut={(e) => {
-                                e.target.style.backgroundColor = "#007BFF";
+                                e.target.style.backgroundColor = "primary";
                                 e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
                             }}
                         >

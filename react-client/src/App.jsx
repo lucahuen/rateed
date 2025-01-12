@@ -10,10 +10,13 @@ import ProfilePage from "./pages/profile-page.jsx";
 import LandingPage from "./pages/landing-page.jsx";
 import SingleCoursePage from "./pages/single-course-page.jsx";
 import AddCoursePage from "./pages/add-course-page.jsx";
+import {ThemeProvider} from "@mui/material";
+import theme from "./theme";
 
 function App() {
     return (
         <ApiProvider>
+            <ThemeProvider theme={theme}>
             <Router>
                 <Routes>
                     <Route path="/" element={<LandingPage/>}/>
@@ -35,6 +38,7 @@ function App() {
                     <Route path="*" element={<h1>404 - Seite nicht gefunden</h1>}/>
                 </Routes>
             </Router>
+            </ThemeProvider>
         </ApiProvider>
     );
 }
