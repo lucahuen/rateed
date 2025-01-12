@@ -28,12 +28,17 @@ export default class CourseService {
         }
     };
 
-    requestCourseByName = async (query) => {
+    requestCourseByName = async (name) => {
         try {
-            const response = await api.get(`/api/courses/${query}`);
+            const response = await api.get(`/api/courses/${name}`);
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
         }
     };
+
+    requestCoursesByQueryName = async (query) => {
+        //todo:
+        return query
+    }
 }

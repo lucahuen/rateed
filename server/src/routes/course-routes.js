@@ -10,6 +10,6 @@ courseRouter.get("/", requestLogger, courseController.getAllCourses);
 
 courseRouter.delete("/:courseId", requestLogger, courseController.deleteCourse);
 
-courseRouter.get("/:name", requestLogger, courseController.courseByName);
+courseRouter.get("/:name", requestLogger, courseController.getCourseByName);
 
 module.exports = courseRouter;
