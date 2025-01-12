@@ -1,15 +1,15 @@
-import { CssBaseline, Container, Typography, Box } from "@mui/material";
+import {CssBaseline, Container, Typography, Box} from "@mui/material";
 import Header from "../components/header.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { ApiContext } from "../context/api-context.jsx";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {ApiContext} from "../context/api-context.jsx";
 
 export default function SingleCoursePage() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const courseId = queryParams.get("query") || ""; // Default ist ein leerer String
     const [course, setCourse] = useState(null);
-    const { courseService } = useContext(ApiContext);
+    const {courseService} = useContext(ApiContext);
 
     const navigate = useNavigate();
 
@@ -29,9 +29,9 @@ export default function SingleCoursePage() {
 
     return (
         <div>
-            <CssBaseline />
-            <Header siteInformation={`Kurs: ${course.name}`} />
-            <Container maxWidth="md" sx={{ mt: 4 }}>
+            <CssBaseline/>
+            <Header siteInformation={`Kurs: ${course?.name}`}/>
+            <Container maxWidth="md" sx={{mt: 4}}>
                 {course ? (
                     <Box
                         sx={{
