@@ -69,7 +69,7 @@ export default function CourseList() {
     return (
         <div>
             <CssBaseline/>
-            <Header/>
+            <Header siteInformation="Kurse"/>
             <Grid
                 container
                 justifyContent="center"
