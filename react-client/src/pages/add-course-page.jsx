@@ -8,6 +8,7 @@ import { ApiContext } from "../context/api-context";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AddCoursePage() {
+    //todo: reload page when add was pressed and alert user of success/error
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let initialQuery = queryParams.get("query") || ""; // Default ist ein leerer String
