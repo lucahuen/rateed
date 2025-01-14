@@ -27,7 +27,7 @@ exports.handleLoginRequest = async (req, res, next) => {
         const foundUser = await User.findOne({username: username});
         if (!foundUser) {
             return res.status(404).json({
-                message: 'Benutzer nicht gefunden'
+                message: 'user not found'
             });
         }
 
@@ -35,13 +35,13 @@ exports.handleLoginRequest = async (req, res, next) => {
         const isPasswordValid = await bcrypt.compare(password, foundUser.password); // Vergleicht Klartext mit Hash
         if (!isPasswordValid) {
             return res.status(401).json({
-                message: 'Ungültige Anmeldedaten'
+                message: 'invalid login data'
             });
         }
 
         // Erfolg - Passwort und Benutzername stimmen überein
         return res.status(200).json({
-            message: 'Anmeldung erfolgreich',
+            message: 'login success',
             user: {id: foundUser._id, username: foundUser.username} // Rückgabe nur der nötigen Daten
         });
     } catch (error) {
@@ -55,7 +55,7 @@ exports.getUser = async (req, res, next) => {
         const user = await User.findById(userId)
         if (!user) {
             return res.status(404).json({
-                message: 'user does not exist',
+                message: 'user not found',
                 data: null
             })
         } else {
@@ -69,33 +69,48 @@ exports.getUser = async (req, res, next) => {
     }
 }
 
+exports.getUserByName = async (req, res, next) => {
+    try {
+        const username = req.params.username
+        const user = await User.findOne({username: username})
+        if (user) {
+            return res.status(200).json({
+                message: "user found",
+                data: user,
+            })
+        } else {
+            return res.status(404).json({
+                message: "user not found"
+            })
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
 exports.updatePassword = async (req, res, next) => {
     try {
-        const userId = req.params.userId; // ID des Benutzers aus der URL
-        const {currentPassword, newPassword} = req.body; // Aktuelles und neues Passwort aus der Anfrage
+        const userId = req.params.userId;
+        const {currentPassword, newPassword} = req.body;
 
-        // Benutzer suchen
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({message: "Benutzer nicht gefunden."});
+            return res.status(404).json({message: "user not found"});
         }
 
-        // Überprüfen, ob das aktuelle Passwort korrekt ist
         const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
         if (!isPasswordCorrect) {
-            return res.status(400).json({message: "Das aktuelle Passwort ist falsch."});
+            return res.status(400).json({message: "current password is wrong"});
         }
 
-        // Neues Passwort hashen
-        const hashedPassword = await bcrypt.hash(newPassword, 10); // 10 Salt-Runden
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
-        // Passwort aktualisieren
         await User.updateOne(
-            {_id: userId}, // Filterkriterium
-            {$set: {password: hashedPassword}} // Zu aktualisierendes Feld
+            {_id: userId},
+            {$set: {password: hashedPassword}}
         );
 
-        res.status(200).json({message: "Passwort erfolgreich aktualisiert."});
+        res.status(200).json({message: "password updated successfully"});
     } catch (error) {
         next(error);
     }
@@ -107,32 +122,32 @@ exports.checkPassword = async (req, res, next) => {
         const enteredPassword = req.body.password
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({message: "Benutzer nicht gefunden."});
+            return res.status(404).json({message: "user not found"});
         }
         const isPasswordCorrect = await bcrypt.compare(enteredPassword, user.password);
         if (!isPasswordCorrect) {
-            return res.status(400).json({message: "Das aktuelle Passwort ist falsch."});
+            return res.status(400).json({message: "current password is wrong"});
         } else {
-            return res.status(200).json({message: "Das Passwort ist korrekt", data: true})
+            return res.status(200).json({message: "password is correct", data: true})
         }
-    }catch (error){
+    } catch (error) {
         next(error)
     }
 }
 
-exports.deleteUser = async(req, res, next) => {
+exports.deleteUser = async (req, res, next) => {
     const userId = req.params.userId;
     try {
         const deletedUser = await User.findByIdAndDelete(userId);
 
         if (!deletedUser) {
-            const error = new Error(`User not found with id: ${userId}`);
+            const error = new Error(`user not found`);
             error.status = 404;
             throw error;
         }
 
         return res.status(200).json({
-            message: `User with id ${userId} successfully deleted.`,
+            message: `user successfully deleted.`,
             data: deletedUser,
         });
     } catch (error) {

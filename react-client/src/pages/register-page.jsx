@@ -25,8 +25,11 @@ export default function RegisterPage() {
                 navigate("/login")
             })
             .catch((error) => {
-            console.error("[Error]: " + error)
-        });
+                setErrorMessage("Etwas ist schief gelaufen, versuche einen anderen Nutzernamen!")
+                console.error("[Error]: " + error)
+            });
+
+
     }
 
     const handleUsernameChange = (event) => {

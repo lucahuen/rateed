@@ -16,5 +16,7 @@ userRoutes.post("/checkPassword", requestLogger, userController.checkPassword)
 
 userRoutes.delete("/:userId", requestLogger, userController.deleteUser)
 
+userRoutes.get("/username/:username", requestLogger, userController.getUserByName)
+
 
 module.exports = userRoutes;
