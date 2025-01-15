@@ -13,6 +13,7 @@ import AddCoursePage from "./pages/add-course-page.jsx";
 import {ThemeProvider} from "@mui/material";
 import theme from "./theme";
 import ReviewPage from "./pages/review-page.jsx";
+import {ChatPage} from "./pages/chat-page.jsx";
 
 function App() {
     return (
@@ -37,6 +38,9 @@ function App() {
 
                     {/*REVIEW*/}
                     <Route path="/review" element={<ReviewPage/>}/>
+
+                    {/*CHAT PAGE*/}
+                    <Route path="/chat" element={<ChatPage/>}/>
 
 
                     {/*404*/}

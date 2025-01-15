@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
-    UserName: {type: String, required: true},
-    Text: {type: String, required: true},
+    username: {type: String, required: true},
+    text: {type: String, required: true},
     createdAt: {type: Date, default: Date.now()},
 });
 
