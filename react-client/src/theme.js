@@ -7,7 +7,8 @@ const theme = createTheme({
             dark: '#1b1b53'
         },
         secondary: {
-            main: '#dcdcdc', // Deine sekundäre Farbe
+            main: '#dcdcdc',
+            dark: '#ffffff'// Deine sekundäre Farbe
         },
     },
 });
