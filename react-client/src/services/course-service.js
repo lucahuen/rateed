@@ -19,9 +19,9 @@ export default class CourseService {
         }
     }
 
-    requestCreateCourse = async (name, semester, professor, university_chair) => {
+    requestCreateCourse = async (name, semester, professor, university_chair, score, exam_date, tutorial, author_id) => {
         try {
-            const response = await api.post("/api/courses/create", {name, semester, professor, university_chair});
+            const response = await api.post("/api/courses/create", {name, semester, professor, university_chair, score, exam_date, tutorial, author_id});
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;

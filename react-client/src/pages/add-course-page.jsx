@@ -33,9 +33,9 @@ export default function AddCoursePage() {
 
     }, [initialQuery, courseService]);
 
-    const handleAddCourse = (name, semester, professor, university_chair) => {
+    const handleAddCourse = (name, semester, professor, university_chair, score, exam_date, tutorial, author_id) => {
         courseService
-            .requestCreateCourse(name, semester, professor, university_chair)
+            .requestCreateCourse(name, semester, professor, university_chair, score, exam_date, tutorial, author_id)
             .then((res) => {
                 setCourses((prevState) => [...prevState, res.data]);
             })
