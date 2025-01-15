@@ -5,64 +5,58 @@ import Grid from "@mui/material/Grid2";
 
 // * AddTodo component
 const AddCourse = ({handleAddCourse}) => {
-    const [addCourseName, setAddTask] = useState("");
-    const [addCourseSemester, setAddTask2] = useState("");
-    const [addCourseProfessor, setAddTask3] = useState("");
-    const [addCourseUniversity_Chair, setAddTask4] = useState("");
-    const [addCourseScore, setAddTask5] = useState("");
-    const [addCourseExam_date, setAddTask6] = useState(new Date(2001, 1, 1));
-    //const [addCourseOld_exam, setAddTask7] = useState(false);
-    const [addCourseTutorial, setAddTask8] = useState(false);
-    const [addCourseAuthor_id, setAddTask9] = useState("");
+    const [addCourseName, setAddCourseName] = useState("");
+    const [addCourseSemester, setAddCourseSemester] = useState("");
+    const [addCourseProfessor, setAddCourseProfessor] = useState("");
+    const [addCourseUniversity_Chair, setAddUniversity_Chair] = useState("");
+    const [addCourseScore, setAddCourseScore] = useState("");
+    const [addCourseExam_date, setAddExam_date] = useState(new Date(2001, 1, 1));
+    const [addCourseTutorial, setAddCourseTutorial] = useState(false);
+    const [addCourseAuthor_Id, setAddAuthor_Id] = useState(1);
 
 
     const handleChange = (event) => {
-        setAddTask(event.target.value);
+        setAddCourseName(event.target.value);
     };
 
     const handleChange2 = (event) => {
-        setAddTask2(event.target.value);
+        setAddCourseSemester(event.target.value);
     };
 
     const handleChange3 = (event) => {
-        setAddTask3(event.target.value);
+        setAddCourseProfessor(event.target.value);
     };
 
     const handleChange4 = (event) => {
-        setAddTask4(event.target.value);
+        setAddUniversity_Chair(event.target.value);
     };
 
     const handleChange5 = (event) => {
-        setAddTask5(event.target.value);
+        setAddCourseScore(event.target.value);
     };
 
     const handleChange6 = (event) => {
-        setAddTask6(event.target.value);
+        setAddExam_date(event.target.value);
     };
 
-   /* const handleChange7 = (event) => {
-        setAddTask7(event.target.value);
-    };*/
-
     const handleChange8 = (event) => {
-        setAddTask8(event.target.value);
+        setAddCourseTutorial(event.target.value);
     };
 
     const handleChange9 = (event) => {
-        setAddTask9(event.target.value);
+        setAddAuthor_Id(event.target.value);
     };
 
     const handleAddCourseAndClearTextfield = () => {
-        handleAddCourse(addCourseName, addCourseSemester, addCourseProfessor, addCourseUniversity_Chair, addCourseScore, addCourseTutorial, addCourseAuthor_id, addCourseExam_date );
-        setAddTask("");
-        setAddTask2("");
-        setAddTask3("");
-        setAddTask4("");
-        setAddTask5("");
-        setAddTask6(new Date());
-        //setAddTask7(false);
-        setAddTask8(false);
-        setAddTask9("");
+        handleAddCourse(addCourseName, addCourseSemester, addCourseProfessor, addCourseUniversity_Chair, addCourseScore, addCourseTutorial, addCourseAuthor_Id, addCourseExam_date );
+        setAddCourseSemester("");
+        setAddCourseProfessor("");
+        setAddUniversity_Chair("");
+        setAddCourseScore("");
+        setAddExam_date(new Date());
+        setAddCourseTutorial(false)
+        setAddAuthor_Id(0);
+
     };
 
     return (
@@ -75,6 +69,16 @@ const AddCourse = ({handleAddCourse}) => {
                         size="small"
                         onChange={handleChange}
                         value={addCourseName}
+                    />
+                </Grid>
+
+                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
+                    <TextField
+                        fullWidth
+                        placeholder="Semester"
+                        size="small"
+                        onChange={handleChange2}
+                        value={addCourseSemester}
                     />
                 </Grid>
 
@@ -113,18 +117,8 @@ const AddCourse = ({handleAddCourse}) => {
                         fullWidth
                         placeholder="Exam date of the course"
                         size="small"
-                        onChange={handleChange6}
+                        onChange={handleChange8}
                         value={addCourseExam_date}
-                    />
-                </Grid>
-
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
-                    <TextField
-                        fullWidth
-                        placeholder="Old exams of the course"
-                        size="small"
-                        //onChange={handleChange7}
-                        //value={addCourseOld_exam}
                     />
                 </Grid>
 
@@ -133,7 +127,7 @@ const AddCourse = ({handleAddCourse}) => {
                         fullWidth
                         placeholder="Tutorial of the course"
                         size="small"
-                        onChange={handleChange8}
+                        onChange={handleChange6}
                         value={addCourseTutorial}
                     />
                 </Grid>
@@ -144,16 +138,7 @@ const AddCourse = ({handleAddCourse}) => {
                         placeholder="Author_id of the course"
                         size="small"
                         onChange={handleChange9}
-                        value={addCourseAuthor_id}
-                    />
-                </Grid>
-                    <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
-                    <TextField
-                        fullWidth
-                        placeholder="Semester"
-                        size="small"
-                        onChange={handleChange2}
-                        value={addCourseSemester}
+                        value={addCourseAuthor_Id}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 handleAddCourseAndClearTextfield();
@@ -161,8 +146,7 @@ const AddCourse = ({handleAddCourse}) => {
                         }}
                     />
                 </Grid>
-
-                <Button variant="contained" onClick={() => handleAddCourse(addCourseName, addCourseSemester, addCourseProfessor, addCourseUniversity_Chair, addCourseScore, addCourseTutorial, addCourseExam_date, addCourseAuthor_id)}>
+                <Button variant="contained" onClick={() => handleAddCourse(addCourseName, addCourseSemester, addCourseProfessor, addCourseUniversity_Chair, addCourseScore,addCourseExam_date, addCourseTutorial, addCourseAuthor_Id)}>
                     Add
                 </Button>
             </Grid>

@@ -7,11 +7,10 @@ exports.createCourse = async (req, res, next) => {
     const university_chair = req.body.university_chair;
     const score = req.body.score;
     const exam_date = req.body.exam_date;
-    //const old_exam = req.body.old_exam;
     const tutorial = req.body.tutorial;
-    const author_id = req.body.author
+    const author_id = req.body.author_id
     try {
-        const newCourse = await new Course({name, semester, professor, university_chair, score, tutorial, author_id, exam_date}).save();
+        const newCourse = await new Course({name, semester, professor, university_chair, score, exam_date, tutorial, author_id}).save();
         return res.status(201).json({
             message: `New course created!`,
             data: newCourse,

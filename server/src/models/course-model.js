@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {Int32} = require("mongodb");
+const userSchema = require("../models/user-model");
 
 const Schema = mongoose.Schema;
 
@@ -16,7 +16,7 @@ const courseSchema = new Schema({
     exam_admission: { type: Boolean},
     old_exam: { type: Boolean},
     tutorial: { type: Boolean},
-
+    author_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
 
 });
