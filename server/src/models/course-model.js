@@ -4,7 +4,7 @@ const {Int32} = require("mongodb");
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true},
     semester: { type: String, required: true },
     createdAt: { type: Date, default: Date.now() },
     score: { type: Int32, default: 0 },
