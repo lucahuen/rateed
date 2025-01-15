@@ -18,7 +18,6 @@ const courseSchema = new Schema({
     tutorial: { type: Boolean},
 
 
-
 });
 
 module.exports = mongoose.model("Course", courseSchema);
