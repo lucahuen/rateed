@@ -3,8 +3,10 @@ import Header from "../components/header.jsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {ApiContext} from "../context/api-context.jsx";
+import {useTheme} from "@mui/material/styles";
 
 export default function SingleCoursePage() {
+    const theme = useTheme();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const courseId = queryParams.get("query") || ""; // Default ist ein leerer String
@@ -35,18 +37,24 @@ export default function SingleCoursePage() {
                 {course ? (
                     <Box
                         sx={{
-                            p: 4,
+                            p: 10,
                             border: "1px solid #ddd",
-                            borderRadius: "8px",
+                            borderRadius: "1px",
                             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-                            backgroundColor: "#f9f9f9",
+                            backgroundColor: "theme.palette.secondary",
                         }}
                     >
-                        <Typography variant="h4" gutterBottom>
+                        <Typography variant="h2" gutterBottom>
                             {course.name}
                         </Typography>
-                        <Typography variant="body1" color="textSecondary">
+                        <Typography variant="h4" sx={{ color: theme => theme.palette.primary.main}}>
                             Semester: {course.semester}
+                        </Typography>
+                        <Typography variant="h4" sx={{color: theme => theme.palette.primary.main}}>
+                            Professor: {course.professor}
+                        </Typography>
+                        <Typography variant="h4" sx={{color: theme => theme.palette.primary.main}}>
+                            University Chair: {course.university_chair}
                         </Typography>
                     </Box>
                 ) : (
