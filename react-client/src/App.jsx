@@ -12,6 +12,7 @@ import SingleCoursePage from "./pages/single-course-page.jsx";
 import AddCoursePage from "./pages/add-course-page.jsx";
 import {ThemeProvider} from "@mui/material";
 import theme from "./theme";
+import ReviewPage from "./pages/review-page.jsx";
 
 function App() {
     return (
@@ -33,6 +34,10 @@ function App() {
                     <Route path="/courses" element={<CourseList/>}/>
                     <Route path="/courses/course" element={<SingleCoursePage/>}/>
                     <Route path="/courses/add" element={<AddCoursePage/>}/>
+
+                    {/*REVIEW*/}
+                    <Route path="/review" element={<ReviewPage/>}/>
+
 
                     {/*404*/}
                     <Route path="*" element={<h1>404 - Seite nicht gefunden</h1>}/>
