@@ -1,21 +1,33 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Alert, Box, Button, CssBaseline, Divider, TextField, Typography} from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    CssBaseline,
+    Divider,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography
+} from "@mui/material";
 import Header from "../components/header";
 import {useNavigate} from "react-router-dom";
 import {ApiContext} from "../context/api-context.jsx";
 import Cookies from "js-cookie";
 import Footer from "../components/footer.jsx";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export default function LoginRegisterPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
     const [hasAccount, setHasAccount] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const {userService} = useContext(ApiContext);
     let sessionId = Cookies.get("auth")
 
     useEffect(() => {
-        if(sessionId){
+        if (sessionId) {
             navigate("/profile")
         }
     }, []);
@@ -85,7 +97,12 @@ export default function LoginRegisterPage() {
                     padding: 2
                 }}
             >
-                <h1 style={{fontSize: "2rem", margin: "20px 0"}}>Login below</h1>
+                {hasAccount ?
+                    <h1 style={{fontSize: "2rem", margin: "20px 0"}}>Login below</h1>
+                    : (
+                        <h1 style={{fontSize: "2rem", margin: "20px 0"}}>Register below</h1>
+
+                    )}
 
                 {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
@@ -100,12 +117,23 @@ export default function LoginRegisterPage() {
 
                 <TextField
                     placeholder={"Password"}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={handlePasswordChange}
                     variant="outlined"
                     fullWidth
                     sx={{maxWidth: 400}}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                </IconButton>
+                            </InputAdornment>)
+                    }}
                 />
                 {hasAccount ?
                     <Button
