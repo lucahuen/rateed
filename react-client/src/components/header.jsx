@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {AppBar, Box, Button, ButtonBase, Divider, Toolbar, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 const Header = ({siteInformation}) => {
     const navigate = useNavigate()
     const sessionId = Cookies.get("auth")
+
     const handleLogin = () => {
         navigate("/login");
     }

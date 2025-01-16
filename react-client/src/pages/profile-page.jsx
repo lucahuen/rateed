@@ -5,6 +5,7 @@ import {useContext, useEffect, useState} from "react";
 import {ApiContext} from "../context/api-context.jsx";
 import {Box, TextField, Button, Typography, Alert, IconButton, InputAdornment, CssBaseline} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import Footer from "../components/footer.jsx";
 
 export default function ProfilePage() {
     const [username, setUsername] = useState("");
@@ -78,7 +79,7 @@ export default function ProfilePage() {
         <div>
             <CssBaseline/>
             <Header siteInformation={"Dein Profil"}/>
-            <Box sx={{padding: 3, maxWidth: 400, margin: "auto"}}>
+            <Box sx={{padding: 3, maxWidth: 400, minHeight: "100vh", margin: "auto"}}>
                 <Typography variant="h5" gutterBottom>
                     Profil
                 </Typography>
@@ -148,6 +149,7 @@ export default function ProfilePage() {
                     Account löschen
                 </Button>
             </Box>
+            <Footer/>
         </div>
     );
 }

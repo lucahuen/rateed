@@ -2,6 +2,7 @@ import {Box, IconButton, Link, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import theme from "../theme.js";
 
 const Footer = () => {
     return (
@@ -11,6 +12,7 @@ const Footer = () => {
                 sx={{
                     px: 2,
                     py: 1,
+                    color: theme.palette.primary.main
                 }}
                 justifyContent="space-between"
                 component={Box}

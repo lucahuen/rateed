@@ -6,6 +6,7 @@ import {ApiContext} from "../context/api-context.jsx";
 import {CssBaseline} from "@mui/material";
 import Searchbar from "../components/searchbar.jsx";
 import {useTheme} from "@mui/material/styles";
+import Footer from "../components/footer.jsx";
 
 export default function LandingPage() {
     const theme = useTheme();
@@ -128,6 +129,7 @@ export default function LandingPage() {
                     </div>
                 )}
             </div>
+            <Footer/>
         </div>
     )
         ;
