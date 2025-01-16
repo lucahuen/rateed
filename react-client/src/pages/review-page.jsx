@@ -10,7 +10,7 @@ import QuestionBox from "../components/questionBox.jsx";
 export default function ReviewPage() {
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
-    const { courseService } = useContext(ApiContext);
+    const { courseService, reviewService } = useContext(ApiContext);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -22,6 +22,9 @@ export default function ReviewPage() {
     const [question1, setQuestion1] = useState(0);
     const [question2, setQuestion2] = useState(0);
     const [question3, setQuestion3] = useState(0);
+
+
+
 
     useEffect(() => {
         courseService
@@ -47,8 +50,19 @@ export default function ReviewPage() {
         setQuestion3(value)
     };
 
-    const handleSubmitRatings = () => {
-        navigate("https://www.youtube.com/watch?v=xvFZjo5PgG0");
+    const handleSubmitRatings = (username, score1, score2, score3, courseName) => {
+        try {
+            reviewService.requestSubmitRating(username, score1, score2, score3, courseName).then(() =>{
+                console.log("Success");
+                //navigate("/reviews");
+            }).catch((error) => {
+                console.error("Error", error);
+            })
+
+        } catch (error) {
+            console.error("Fehler beim Senden der Nachricht:", error);
+        }
+
     };
 
 

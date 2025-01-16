@@ -34,7 +34,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use("/todos", todoRouter);
 app.use("/courses", courseRouter);
 app.use("/users", userRouter);
-app.use("/review", reviewRouter);
+app.use("/reviews", reviewRouter);
 app.use("/messages", messageRouter)
 
 app.use(errorHandler);
