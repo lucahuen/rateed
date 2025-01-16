@@ -12,7 +12,7 @@ export function MessageList({messages, handleDeleteMessage, username}) {
         <Container maxWidth="sm" style={{marginTop: "20px"}}>
             {messages?.length ? (
                 <Typography gutterBottom variant="h6">
-                    Most recent Posts:
+                    Neueste Nachrichten:
                 </Typography>
             ) : (
                 <Typography gutterBottom variant="h6">

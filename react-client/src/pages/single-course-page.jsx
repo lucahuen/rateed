@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../context/api-context.jsx";
 import { useTheme } from "@mui/material/styles";
+import ChatBox from "../components/chat-box.jsx";
 
 export default function SingleCoursePage() {
     const theme = useTheme();
@@ -76,6 +77,7 @@ export default function SingleCoursePage() {
                     </Typography>
                 )}
             </Container>
+            <ChatBox/>
         </div>
     );
 }

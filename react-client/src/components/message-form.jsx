@@ -23,7 +23,7 @@ export function MessageForm({onSendMessage}) {
     return (
         <Container maxWidth="sm" style={{marginTop: "20px", textAlign: "center"}}>
             <Typography variant="h5" gutterBottom>
-                Send a Message
+                Sende eine Nachricht
             </Typography>
             <Box
                 component="form"
@@ -36,7 +36,7 @@ export function MessageForm({onSendMessage}) {
                 }}
             >
                 <TextField
-                    label="Message"
+                    label="Nachricht"
                     variant="outlined"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
@@ -50,7 +50,7 @@ export function MessageForm({onSendMessage}) {
                     onClick={handleSubmit}
                     disabled={!text} // Disable button if fields are empty
                 >
-                    Send
+                    Senden
                 </Button>
             </Box>
         </Container>
