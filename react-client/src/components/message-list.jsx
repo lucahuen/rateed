@@ -1,13 +1,18 @@
 import React from "react";
-import { Card, CardHeader, Typography, Container } from "@mui/material";
+import {Card, CardHeader, Typography, Container, IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export function MessageList({ messages }) {
+export function MessageList({messages, handleDeleteMessage, username}) {
+
+    const handleDelete = (id) => {
+        handleDeleteMessage(id)
+    }
 
     return (
-        <Container maxWidth="sm" style={{ marginTop: "20px" }}>
+        <Container maxWidth="sm" style={{marginTop: "20px"}}>
             {messages?.length ? (
                 <Typography gutterBottom variant="h6">
-                    #{messages.length} messages found!
+                    Most recent Posts:
                 </Typography>
             ) : (
                 <Typography gutterBottom variant="h6">
@@ -21,7 +26,7 @@ export function MessageList({ messages }) {
                         key={index}
                         sx={{
                             borderRadius: 2,
-                            "&:hover": { backgroundColor: "#f5f5f5" },
+                            "&:hover": {backgroundColor: "#f5f5f5"},
                             border: "1px solid #b7b7b7",
                             marginBottom: 2,
                         }}
@@ -32,6 +37,14 @@ export function MessageList({ messages }) {
                                 <Typography variant="body1" component="span">
                                     <strong>{message.username}:</strong> {message.text}
                                 </Typography>
+                            }
+                            action={message.username === username ?
+                                <IconButton
+                                    color="error"
+                                    onClick={() => handleDelete(message._id)}
+                                >
+                                    <DeleteIcon/>
+                                </IconButton> : (<div></div>)
                             }
                         />
                     </Card>
