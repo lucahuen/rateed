@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {Button, Container, TextField, Box, Typography} from "@mui/material";
 import Cookies from "js-cookie";
 import {ApiContext} from "../context/api-context.jsx";

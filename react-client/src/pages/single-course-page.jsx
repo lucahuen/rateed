@@ -5,6 +5,7 @@ import {useContext, useEffect, useState} from "react";
 import {ApiContext} from "../context/api-context.jsx";
 import {useTheme} from "@mui/material/styles";
 import ChatBox from "../components/chat-box.jsx";
+import Cookies from "js-cookie";
 
 export default function SingleCoursePage() {
     const theme = useTheme();
@@ -14,11 +15,15 @@ export default function SingleCoursePage() {
     const [course, setCourse] = useState(null);
     const {courseService} = useContext(ApiContext);
 
+    const sessionId = Cookies.get("auth")
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!courseId) {
             navigate("/courses");
+        }
+        if(!sessionId){
+            navigate("/")
         }
         courseService
             .requestCourseById(courseId)

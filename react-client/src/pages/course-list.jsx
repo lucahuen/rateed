@@ -1,18 +1,20 @@
 import React, {useContext, useEffect, useState} from "react";
-import {CssBaseline, Typography, Divider, Button} from "@mui/material";
+import {CssBaseline, Divider, Button} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Header from "../components/header";
 import Course from "../components/course";
-import AddCourse from "../components/add-course";
 import Footer from "../components/footer";
 import {ApiContext} from "../context/api-context";
 import Searchbar from "../components/searchbar.jsx";
 import {useLocation, useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function CourseList() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let initialQuery = queryParams.get("query") || ""; // Default ist ein leerer String
+
+    const sessionId = Cookies.get("auth")
 
     const [courses, setCourses] = useState([]);
     const [searchInput, setSearchInput] = useState('');
@@ -21,6 +23,9 @@ export default function CourseList() {
     const navigate = useNavigate(); // Hier wird der useNavigate-Hook verwendet
 
     useEffect(() => {
+        if(!sessionId){
+            navigate("/")
+        }
         // Führe Suche aus, wenn ein Query-Parameter vorhanden ist
         courseService
             .requestCoursesByQueryName(initialQuery)

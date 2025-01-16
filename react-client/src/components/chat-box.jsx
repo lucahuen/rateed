@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { MessageList } from "../components/message-list.jsx";
-import { MessageForm } from "../components/message-form.jsx";
+import { MessageList } from "./message-list.jsx";
+import { MessageForm } from "./message-form.jsx";
 import { ApiContext } from "../context/api-context.jsx";
 import Cookies from "js-cookie";
 import { useLocation, useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {AppBar, Box, Button, ButtonBase, Divider, Toolbar, Typography} from "@mui/material";
+import React from "react";
+import {AppBar, Box, Button, ButtonBase, Toolbar, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";

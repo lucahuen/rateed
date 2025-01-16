@@ -1,10 +1,9 @@
 import React from "react";
-import {Button, Card, CardHeader, IconButton, Typography} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {Button, Card, CardHeader, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 // * Course component
-const Course = ({courses, handleDeleteCourse}) => {
+const Course = ({courses}) => {
     const navigate = useNavigate();
 
     const handleGetToCourse = (id) => {
