@@ -4,7 +4,7 @@ import { MessageForm } from "./message-form.jsx";
 import { ApiContext } from "../context/api-context.jsx";
 import Cookies from "js-cookie";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from "@mui/material";
 
 const ChatBox = () => {
     const [messages, setMessages] = useState([]);
@@ -16,6 +16,10 @@ const ChatBox = () => {
     const queryParams = new URLSearchParams(location.search);
     const courseId = queryParams.get("query") || "";
     const [username, setUsername] = useState("");
+
+    // Dialog State
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [messageToDelete, setMessageToDelete] = useState(null);
 
     if (!sessionId) {
         navigate("/login");
@@ -36,11 +40,14 @@ const ChatBox = () => {
         getUsername();
     }, []);
 
-    const handleDeleteMessages = (id) => {
+    const handleDeleteMessages = () => {
+        if (!messageToDelete) return;
+
         chatService
-            .requestDeleteMessage(id)
+            .requestDeleteMessage(messageToDelete)
             .then(() => {
                 updateMessages();
+                setDialogOpen(false); // Dialog schließen nach erfolgreichem Löschen
             })
             .catch((error) => {
                 console.error(error);
@@ -87,6 +94,16 @@ const ChatBox = () => {
         }
     };
 
+    const openDeleteDialog = (id) => {
+        setMessageToDelete(id);
+        setDialogOpen(true);
+    };
+
+    const closeDeleteDialog = () => {
+        setDialogOpen(false);
+        setMessageToDelete(null);
+    };
+
     return (
         <Box>
             <Container maxWidth={"md"} sx={{ mt: 4, mb: 4 }}>
@@ -104,10 +121,28 @@ const ChatBox = () => {
                     <MessageForm onSendMessage={handleSendMessage} sx={{ width: '100%' }} />
 
                     <Box mt={3} sx={{ width: '100%' }}>
-                        <MessageList messages={messages} handleDeleteMessage={handleDeleteMessages} username={username} />
+                        <MessageList messages={messages} handleDeleteMessage={openDeleteDialog} username={username} />
                     </Box>
                 </Paper>
             </Container>
+
+            {/* Dialog für Bestätigung */}
+            <Dialog open={dialogOpen} onClose={closeDeleteDialog}>
+                <DialogTitle>Nachricht löschen</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Sind Sie sicher, dass Sie diese Nachricht löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeDeleteDialog} color="primary">
+                        Abbrechen
+                    </Button>
+                    <Button onClick={handleDeleteMessages} color="error">
+                        Löschen
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };
