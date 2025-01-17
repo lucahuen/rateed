@@ -1,156 +1,112 @@
-import React, {useState} from "react";
-import {Button, TextField} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
+const AddCourse = ({ handleAddCourse }) => {
+    const [name, setName] = useState("");
+    const [semester, setSemester] = useState("");
+    const [professor, setProfessor] = useState("");
+    const [universityChair, setUniversityChair] = useState("");
+    const [examDate, setExamDate] = useState(new Date()); // Default to the current date
+    const [tutorial, setTutorial] = useState(false);
+    const [authorId, setAuthorId] = useState(Cookies.get("auth")||"");
+    const sessionId = Cookies.get("auth");
+    const navigate = useNavigate();
 
-// * AddTodo component
-const AddCourse = ({handleAddCourse}) => {
-    const [addCourseName, setAddCourseName] = useState("");
-    const [addCourseSemester, setAddCourseSemester] = useState("");
-    const [addCourseProfessor, setAddCourseProfessor] = useState("");
-    const [addCourseUniversity_Chair, setAddUniversity_Chair] = useState("");
-    const [addCourseScore, setAddCourseScore] = useState("");
-    const [addCourseExam_date, setAddExam_date] = useState(new Date(2001, 1, 1));
-    const [addCourseTutorial, setAddCourseTutorial] = useState(false);
-    const [addCourseAuthor_Id, setAddAuthor_Id] = useState(1);
-
-
-    const handleChange = (event) => {
-        setAddCourseName(event.target.value);
-    };
-
-    const handleChange2 = (event) => {
-        setAddCourseSemester(event.target.value);
-    };
-
-    const handleChange3 = (event) => {
-        setAddCourseProfessor(event.target.value);
-    };
-
-    const handleChange4 = (event) => {
-        setAddUniversity_Chair(event.target.value);
-    };
-
-    const handleChange5 = (event) => {
-        setAddCourseScore(event.target.value);
-    };
-
-    const handleChange6 = (event) => {
-        setAddExam_date(event.target.value);
-    };
-
-    const handleChange8 = (event) => {
-        setAddCourseTutorial(event.target.value);
-    };
-
-    const handleChange9 = (event) => {
-        setAddAuthor_Id(event.target.value);
-    };
+    useEffect(() => {
+        if (!sessionId) {
+            navigate("/");
+            setAuthorId(sessionId);
+        }
+    }, []);
 
     const handleAddCourseAndClearTextfield = () => {
-        handleAddCourse(addCourseName, addCourseSemester, addCourseProfessor, addCourseUniversity_Chair, addCourseScore, addCourseTutorial, addCourseAuthor_Id, addCourseExam_date );
-        setAddCourseSemester("");
-        setAddCourseProfessor("");
-        setAddUniversity_Chair("");
-        setAddCourseScore("");
-        setAddExam_date(new Date());
-        setAddCourseTutorial(false)
-        setAddAuthor_Id(0);
-
+        handleAddCourse(name, semester, professor, universityChair, examDate, tutorial, authorId);
+        setName("");
+        setSemester("");
+        setProfessor("");
+        setUniversityChair("");
+        setExamDate(new Date());
+        setTutorial(false);
     };
 
     return (
-        <>
-            <Grid container spacing={4} sx={{py: 2}}>
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Grid container spacing={4} sx={{ py: 2 }}>
+                <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
                         placeholder="Name of the course"
                         size="small"
-                        onChange={handleChange}
-                        value={addCourseName}
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
+                <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
                         placeholder="Semester"
                         size="small"
-                        onChange={handleChange2}
-                        value={addCourseSemester}
+                        onChange={(e) => setSemester(e.target.value)}
+                        value={semester}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
+                <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
                         placeholder="Professor of the course"
                         size="small"
-                        onChange={handleChange3}
-                        value={addCourseProfessor}
+                        onChange={(e) => setProfessor(e.target.value)}
+                        value={professor}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
+                <Grid item xs={12} sm={6}>
                     <TextField
                         fullWidth
                         placeholder="University Chair of the course"
                         size="small"
-                        onChange={handleChange4}
-                        value={addCourseUniversity_Chair}
+                        onChange={(e) => setUniversityChair(e.target.value)}
+                        value={universityChair}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
-                    <TextField
-                        fullWidth
-                        placeholder="Score of the course"
-                        size="small"
-                        onChange={handleChange5}
-                        value={addCourseScore}
+                <Grid item xs={12} sm={6}>
+                    {/* DatePicker for Exam Date */}
+                    <DatePicker
+                        label="Exam date of the course"
+                        value={examDate}
+                        onChange={(date) => setExamDate(date)}
+                        renderInput={(params) => <TextField fullWidth size="small" {...params} />}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
-                    <TextField
-                        fullWidth
-                        placeholder="Exam date of the course"
-                        size="small"
-                        onChange={handleChange8}
-                        value={addCourseExam_date}
+                <Grid item xs={12} sm={6}>
+                    {/* Checkbox for Tutorial */}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={tutorial}
+                                onChange={(e) => setTutorial(e.target.checked)}
+                            />
+                        }
+                        label="Tutorial of the course"
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
-                    <TextField
-                        fullWidth
-                        placeholder="Tutorial of the course"
-                        size="small"
-                        onChange={handleChange6}
-                        value={addCourseTutorial}
-                    />
+                <Grid item xs={12}>
+                    <Button variant="contained" onClick={handleAddCourseAndClearTextfield}>
+                        Add
+                    </Button>
                 </Grid>
-
-                <Grid item xs={12} sm={6}> {/* Adjust size as needed */}
-                    <TextField
-                        fullWidth
-                        placeholder="Author_id of the course"
-                        size="small"
-                        onChange={handleChange9}
-                        value={addCourseAuthor_Id}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                handleAddCourseAndClearTextfield();
-                            }
-                        }}
-                    />
-                </Grid>
-                <Button variant="contained" onClick={() => handleAddCourse(addCourseName, addCourseSemester, addCourseProfessor, addCourseUniversity_Chair, addCourseScore,addCourseExam_date, addCourseTutorial, addCourseAuthor_Id)}>
-                    Add
-                </Button>
             </Grid>
-        </>
+        </LocalizationProvider>
     );
 };
 
