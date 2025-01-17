@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import TodoList from './pages/todo-list';
 import LoginRegisterPage from './pages/login-register-page.jsx';
 import CourseList from './pages/course-list';
 import {ApiProvider} from './context/api-context';
@@ -19,7 +18,6 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path="/" element={<LandingPage/>}/>
-                        <Route path="/todos" element={<TodoList/>}/>
 
                         {/*LOGIN AND REGISTER*/}
                         <Route path="/login" element={<LoginRegisterPage/>}/>
