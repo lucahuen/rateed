@@ -17,11 +17,11 @@ export default function ReviewPage() {
     const courseId = queryParams.get("query") || "";
 
     const [course, setCourse] = useState("");
-    const [ratings, setRatings] = useState([3]);
 
-    const [question1, setQuestion1] = useState(0);
-    const [question2, setQuestion2] = useState(0);
-    const [question3, setQuestion3] = useState(0);
+    // INITIAL STATE OF THESE MUST BE THE EXACT SAME AS IN @QUESTION-BOX
+    const [question1, setQuestion1] = useState(5);
+    const [question2, setQuestion2] = useState(5);
+    const [question3, setQuestion3] = useState(5);
 
 
     useEffect(() => {
@@ -48,9 +48,9 @@ export default function ReviewPage() {
         setQuestion3(value)
     };
 
-    const handleSubmitRatings = (username, score1, score2, score3, courseName) => {
+    const handleSubmitRatings = (score1, score2, score3) => {
         try {
-            reviewService.requestSubmitRating(username, score1, score2, score3, courseName).then(() => {
+            reviewService.requestSubmitRating(sessionId, score1, score2, score3, courseId).then(() => {
                 console.log("Success");
                 //navigate("/reviews");
             }).catch((error) => {
@@ -140,14 +140,11 @@ export default function ReviewPage() {
                         textTransform: "none",
                         borderRadius: "8px",
                     }}
-                    onClick={() => handleSubmitRatings("username", question1, question2, question3, course.name)}
+                    onClick={() => handleSubmitRatings(question1, question2, question3)}
                 >
                     Bewertungen abschicken
                 </Button>
             </Box>
-
-
-            {/* Footer bleibt am Ende */}
             <Footer/>
         </div>
     );

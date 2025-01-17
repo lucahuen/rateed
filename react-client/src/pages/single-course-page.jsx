@@ -6,6 +6,7 @@ import {ApiContext} from "../context/api-context.jsx";
 import {useTheme} from "@mui/material/styles";
 import ChatBox from "../components/chat-box.jsx";
 import Cookies from "js-cookie";
+import Footer from "../components/footer.jsx";
 
 export default function SingleCoursePage() {
     const theme = useTheme();
@@ -114,6 +115,7 @@ export default function SingleCoursePage() {
                 </Button>
             </Container>
             <ChatBox/>
+            <Footer/>
         </div>
     );
 }
