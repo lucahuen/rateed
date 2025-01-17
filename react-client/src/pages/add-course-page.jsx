@@ -1,23 +1,21 @@
-import React, {useContext, useEffect, useState} from "react";
-import {CssBaseline, Typography, Divider, Button} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import React, { useContext, useEffect, useState } from "react";
+import { CssBaseline, Typography, Divider, Button } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import Header from "../components/header";
 import AddCourse from "../components/add-course";
 import Footer from "../components/footer";
-import {ApiContext} from "../context/api-context";
-import {useLocation, useNavigate} from "react-router-dom";
+import { ApiContext } from "../context/api-context";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AddCoursePage() {
-    //todo: reload page when add was pressed and alert user of success/error
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let initialQuery = queryParams.get("query") || ""; // Default ist ein leerer String
 
     const [courses, setCourses] = useState([]);
-    const [searchInput, setSearchInput] = useState('');
 
-    const {courseService} = useContext(ApiContext);
-    const navigate = useNavigate(); // Hier wird der useNavigate-Hook verwendet
+    const { courseService } = useContext(ApiContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Führe Suche aus, wenn ein Query-Parameter vorhanden ist
@@ -30,13 +28,12 @@ export default function AddCoursePage() {
             .catch((error) => {
                 console.error("[Error]: " + error);
             });
-
     }, [initialQuery, courseService]);
 
-    const handleAddCourse = (name, semester, professor, university_chair, exam_date, tutorial, author_id) => {
-        console.log(name, semester, professor, university_chair, exam_date, tutorial, author_id)
+    const handleAddCourse = (name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId) => {
+        console.log(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId)
         courseService
-            .requestCreateCourse(name, semester, professor, university_chair, exam_date, tutorial, author_id)
+            .requestCreateCourse(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId)
             .then((res) => {
                 setCourses((prevState) => [...prevState, res.data]);
             })
@@ -51,26 +48,27 @@ export default function AddCoursePage() {
 
     return (
         <div>
-            <CssBaseline/>
-            <Header siteInformation="Kurse hinzufügen"/>
+            <CssBaseline />
+            <Header siteInformation="Kurse hinzufügen" />
             <Grid
                 container
                 justifyContent="center"
-                sx={{minHeight: "95vh", py: 10, px: 2}}
+                sx={{ minHeight: "95vh", py: 10, px: 2 }}
             >
-                <Grid size={{xs: 12, md: 8, lg: 5}}>
+                <Grid item xs={12} sm={8} md={6}>
                     <Grid
                         container
                         direction="column"
-                        sx={{p: 4, borderRadius: 2, border: "3px solid #d6d4d4"}}
-                        spacing={1}
+                        sx={{ p: 4, borderRadius: 10, border: "3px solid #d6d4d4" }}
+                        spacing={3} // Spacing hier anpassen für bessere Abstände
                     >
                         <Typography variant="h5" align="center">
                             Add new Course
                         </Typography>
-                        <Divider/>
-                        <AddCourse handleAddCourse={handleAddCourse}/>
-                        <Divider/>
+                        <Divider />
+                        {/* AddCourse-Komponente wird hier eingebunden */}
+                        <AddCourse handleAddCourse={handleAddCourse} />
+                        <Divider />
                         {/* Button zum Zurückkehren zur Kursübersicht */}
                         <Button
                             variant="contained"
@@ -81,6 +79,7 @@ export default function AddCoursePage() {
                                 padding: "10px 20px",
                                 fontSize: "1rem",
                                 borderRadius: "8px",
+                                width: "100%", // Full width für den Button
                             }}
                         >
                             Zurück zu allen Kursen
@@ -88,8 +87,8 @@ export default function AddCoursePage() {
                     </Grid>
                 </Grid>
             </Grid>
-            <Divider/>
-            <Footer/>
+            <Divider />
+            <Footer />
         </div>
     );
 }

@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import theme from "../theme.js";
 
 const AddCourse = ({ handleAddCourse }) => {
     const [name, setName] = useState("");
     const [semester, setSemester] = useState("");
     const [professor, setProfessor] = useState("");
     const [universityChair, setUniversityChair] = useState("");
-    const [examDate, setExamDate] = useState(new Date()); // Default to the current date
+    const [examDate, setExamDate] = useState(new Date());
     const [tutorial, setTutorial] = useState(false);
-    const [authorId, setAuthorId] = useState(Cookies.get("auth")||"");
+    const [bonusPoints, setBonusPoints] = useState(false);
+    const [oldExam, setOldExam] = useState(false);
+    const [examAdmission, setExamAdmission] = useState(false);
+    const [authorId, setAuthorId] = useState(Cookies.get("auth") || "");
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
 
@@ -25,70 +29,91 @@ const AddCourse = ({ handleAddCourse }) => {
     }, []);
 
     const handleAddCourseAndClearTextfield = () => {
-        handleAddCourse(name, semester, professor, universityChair, examDate, tutorial, authorId);
+        // Reihenfolge aus dem course-model
+        handleAddCourse(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId);
         setName("");
         setSemester("");
         setProfessor("");
         setUniversityChair("");
         setExamDate(new Date());
         setTutorial(false);
+        setBonusPoints(false);
+        setOldExam(false);
     };
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Grid container spacing={4} sx={{ py: 2 }}>
-                <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
+                {/* Name */}
+                <Grid item xs={12}>
                     <TextField
                         fullWidth
                         placeholder="Name of the course"
                         size="small"
                         onChange={(e) => setName(e.target.value)}
                         value={name}
+                        label="Course Name"
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                {/* Semester */}
+                <Grid item xs={12}>
                     <TextField
                         fullWidth
                         placeholder="Semester"
                         size="small"
                         onChange={(e) => setSemester(e.target.value)}
                         value={semester}
+                        label="Semester"
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                {/* Professor */}
+                <Grid item xs={12}>
                     <TextField
                         fullWidth
                         placeholder="Professor of the course"
                         size="small"
                         onChange={(e) => setProfessor(e.target.value)}
                         value={professor}
+                        label="Professor"
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                {/* University Chair */}
+                <Grid item xs={12}>
                     <TextField
                         fullWidth
                         placeholder="University Chair of the course"
                         size="small"
                         onChange={(e) => setUniversityChair(e.target.value)}
                         value={universityChair}
+                        label="University Chair"
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
-                    {/* DatePicker for Exam Date */}
+                {/* Exam Date */}
+                <Grid item xs={12}>
                     <DatePicker
-                        label="Exam date of the course"
+                        label="Exam Date"
                         value={examDate}
                         onChange={(date) => setExamDate(date)}
-                        renderInput={(params) => <TextField fullWidth size="small" {...params} />}
                     />
                 </Grid>
-
-                <Grid item xs={12} sm={6}>
-                    {/* Checkbox for Tutorial */}
+                {/* Exam Admissiom */}
+                <Grid item xs={12}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={examAdmission}
+                                onChange={(e) => setExamAdmission(e.target.checked)}
+                            />
+                        }
+                        label="Exam Admission"
+                    />
+                </Grid>
+                {/* Tutorial */}
+                <Grid item xs={12}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -100,9 +125,40 @@ const AddCourse = ({ handleAddCourse }) => {
                     />
                 </Grid>
 
+                {/* Bonus Points */}
                 <Grid item xs={12}>
-                    <Button variant="contained" onClick={handleAddCourseAndClearTextfield}>
-                        Add
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={bonusPoints}
+                                onChange={(e) => setBonusPoints(e.target.checked)}
+                            />
+                        }
+                        label="Has Bonus Points"
+                    />
+                </Grid>
+
+                {/* Old Exam */}
+                <Grid item xs={12}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={oldExam}
+                                onChange={(e) => setOldExam(e.target.checked)}
+                            />
+                        }
+                        label="Old Exams Exist"
+                    />
+                </Grid>
+
+                {/* Submit Button */}
+                <Grid item xs={12}>
+                    <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={handleAddCourseAndClearTextfield}
+                    >
+                        Add Course
                     </Button>
                 </Grid>
             </Grid>

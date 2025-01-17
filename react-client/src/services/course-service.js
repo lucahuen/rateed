@@ -14,14 +14,25 @@ export default class CourseService {
         try {
             const response = await api.get(`/api/courses/course/${id}`);
             return response.data;
-        }catch (e){
+        } catch (e) {
             throw e.response.data.error.message;
         }
     }
 
-    requestCreateCourse = async (name, semester, professor, university_chair, exam_date, tutorial, author_id) => {
+    requestCreateCourse = async (name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId) => {
         try {
-            const response = await api.post("/api/courses/create", {name, semester, professor, university_chair, exam_date, tutorial, author_id});
+            const response = await api.post("/api/courses/create", {
+                name: name,
+                semester: semester,
+                professor: professor,
+                universityChair: universityChair,
+                examDate: examDate,
+                examAdmission: examAdmission,
+                tutorial: tutorial,
+                oldExam: oldExam,
+                bonusPoints: bonusPoints,
+                authorId: authorId
+            });
             return response.data;
         } catch (error) {
             throw error.response.data.error.message;
@@ -51,7 +62,7 @@ export default class CourseService {
             if (query) {
                 const response = await api.get(`api/courses/q/${query}`);
                 return response.data;
-            }else {
+            } else {
                 return this.requestAllCourses();
             }
         } catch (error) {

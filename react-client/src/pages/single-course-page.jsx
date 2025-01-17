@@ -62,16 +62,7 @@ export default function SingleCoursePage() {
                             Professor: {course.professor}
                         </Typography>
                         <Typography variant="h5" sx={{ mb: 2 }}>
-                            University Chair: {course.university_chair}
-                        </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
-                            Score: {course.score}
-                        </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
-                            Counter: {course.counter}
-                        </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
-                            Bonus Points: {formatBoolean(course.bonus_points)}
+                            University Chair: {course.universityChair}
                         </Typography>
                         <Typography variant="h5" sx={{ mb: 2 }}>
                             Exam Date:{" "}
@@ -80,20 +71,16 @@ export default function SingleCoursePage() {
                                 : "Noch nicht festgelegt"}
                         </Typography>
                         <Typography variant="h5" sx={{ mb: 2 }}>
-                            Exam Admission: {formatBoolean(course.exam_admission)}
-                        </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
-                            Old Exam: {formatBoolean(course.old_exam)}
+                            Exam Admission: {formatBoolean(course.examAdmission)}
                         </Typography>
                         <Typography variant="h5" sx={{ mb: 2 }}>
                             Tutorial: {formatBoolean(course.tutorial)}
                         </Typography>
                         <Typography variant="h5" sx={{ mb: 2 }}>
-                            Author ID: {course.author_id || "Nicht zugewiesen"}
+                            Old Exam: {formatBoolean(course.oldExam)}
                         </Typography>
                         <Typography variant="h5" sx={{ mb: 2 }}>
-                            Erstellt am:{" "}
-                            {new Date(course.createdAt).toLocaleDateString()}
+                            Bonus Points: {formatBoolean(course.bonusPoints)}
                         </Typography>
                     </Box>
                 ) : (
