@@ -53,3 +53,21 @@ exports.getReviewByUserAndCourse = async (req, res, next) => {
         next(e);
     }
 }
+
+exports.getReviewsByCourse = async (req, res, next) => {
+    const courseId = req.params.courseId;
+    try {
+        const foundReviews = await Review.find({courseId: courseId})
+        if (!foundReviews) {
+            return res.status(404).json({
+                message: `no reviews found for course ${courseId}`
+            });
+        } else
+            return res.status(200).json({
+                message: "reviews found",
+                data: foundReviews,
+            });
+    } catch (e) {
+        next(e)
+    }
+}

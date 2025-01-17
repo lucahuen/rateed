@@ -15,7 +15,10 @@ export default function SingleCoursePage() {
     const courseId = queryParams.get("query") || ""; // Default ist ein leerer String
     const [course, setCourse] = useState(null);
     const {courseService, reviewService} = useContext(ApiContext);
-    const [userHasReviewedThisCourse, setUserHasReviewedThisCourse] = useState(false);
+    const [score1, setScore1] = useState(0);
+    const [score2, setScore2] = useState(0);
+    const [score3, setScore3] = useState(0);
+
 
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
@@ -36,19 +39,32 @@ export default function SingleCoursePage() {
                 console.error(error);
             });
         reviewService
-            .requestReviewByUserAndCourse(sessionId, courseId)
+            .requestReviewsByCourse(courseId)
             .then((res) => {
                 console.log(res.data)
-                if (res.data) {
-                    setUserHasReviewedThisCourse(true);
-                } else {
-                    setUserHasReviewedThisCourse(false);
-                }
+                processReviews(res.data)
             })
-            .catch((e) => {
+            .catch(e => {
                 console.error(e)
             })
     }, [courseId, courseService, navigate]);
+
+    const processReviews = (reviews) => {
+        let tmpScore1 = 0;
+        let tmpScore2 = 0;
+        let tmpScore3 = 0;
+
+        for (let review of reviews) {
+            // score hochzählend
+            tmpScore1 += review.score1
+            tmpScore2 += review.score2
+            tmpScore3 += review.score3
+        }
+        // score durch anzahl der reviews teilen
+        setScore1(tmpScore1 / reviews.length)
+        setScore2(tmpScore2 / reviews.length)
+        setScore3(tmpScore3 / reviews.length)
+    }
 
     const formatBoolean = (value) => (value ? "Ja" : "Nein");
 
@@ -97,6 +113,20 @@ export default function SingleCoursePage() {
                         <Typography variant="h5" sx={{mb: 2}}>
                             Bonus Points: {formatBoolean(course.bonusPoints)}
                         </Typography>
+
+                        {/* Anzeige der Bewertungswerte */}
+                        <Typography variant="h6" sx={{mt: 4}}>
+                            Bewertungsdurchschnitt:
+                        </Typography>
+                        <Typography variant="body1">
+                            Score 1: {score1}
+                        </Typography>
+                        <Typography variant="body1">
+                            Score 2: {score2}
+                        </Typography>
+                        <Typography variant="body1">
+                            Score 3: {score3}
+                        </Typography>
                     </Box>
                 ) : (
                     <Typography variant="body1" color="textSecondary">
@@ -105,32 +135,30 @@ export default function SingleCoursePage() {
                 )}
             </Container>
             <Container maxWidth="md" sx={{mt: 4}} style={{textAlign: "center"}}>
-                {/*{!userHasReviewedThisCourse && (*/}
-                    <Button
-                        style={{
-                            fontSize: "1.2rem",
-                            padding: "12px 30px",
-                            backgroundColor: theme.palette.primary.main,
-                            color: "#fff",
-                            border: "none",
-                            borderRadius: "8px",
-                            cursor: "pointer",
-                            transition: "all 0.3s ease",
-                            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                        }}
-                        onMouseOver={(e) => {
-                            e.target.style.backgroundColor = theme.palette.primary.dark;
-                            e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
-                        }}
-                        onMouseOut={(e) => {
-                            e.target.style.backgroundColor = theme.palette.primary.main;
-                            e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
-                        }}
-                        onClick={() => navigate(`/review?query=${encodeURIComponent(courseId)}`)}
-                    >
-                        Bewerte diesen Kurs
-                    </Button>
-                {/*)}*/}
+                <Button
+                    style={{
+                        fontSize: "1.2rem",
+                        padding: "12px 30px",
+                        backgroundColor: theme.palette.primary.main,
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "8px",
+                        cursor: "pointer",
+                        transition: "all 0.3s ease",
+                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    }}
+                    onMouseOver={(e) => {
+                        e.target.style.backgroundColor = theme.palette.primary.dark;
+                        e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
+                    }}
+                    onMouseOut={(e) => {
+                        e.target.style.backgroundColor = theme.palette.primary.main;
+                        e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+                    }}
+                    onClick={() => navigate(`/review?query=${encodeURIComponent(courseId)}`)}
+                >
+                    Bewerte diesen Kurs
+                </Button>
             </Container>
             v
             <ChatBox/>

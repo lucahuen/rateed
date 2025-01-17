@@ -21,4 +21,13 @@ export default class ReviewService {
         }
     }
 
+    requestReviewsByCourse = async (courseId) => {
+        try {
+            const response = await api.get(`/api/reviews/${courseId}`)
+            return response.data
+        }catch (e){
+            throw e.response.data.error.message;
+        }
+    }
+
 }
