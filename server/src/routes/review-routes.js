@@ -1,6 +1,6 @@
 const express = require("express");
 const requestLogger = require("../middleware/logger-middleware");
-const reviewController = require("../controllers/review-controller");
+const reviewController = require("../controllers/review-controllers");
 
 const reviewRouter = express.Router();
 
