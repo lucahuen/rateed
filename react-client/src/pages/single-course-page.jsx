@@ -1,9 +1,9 @@
-import { CssBaseline, Container, Typography, Box } from "@mui/material";
+import {CssBaseline, Container, Typography, Box, Button} from "@mui/material";
 import Header from "../components/header.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { ApiContext } from "../context/api-context.jsx";
-import { useTheme } from "@mui/material/styles";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {ApiContext} from "../context/api-context.jsx";
+import {useTheme} from "@mui/material/styles";
 import ChatBox from "../components/chat-box.jsx";
 import Cookies from "js-cookie";
 
@@ -13,7 +13,7 @@ export default function SingleCoursePage() {
     const queryParams = new URLSearchParams(location.search);
     const courseId = queryParams.get("query") || ""; // Default ist ein leerer String
     const [course, setCourse] = useState(null);
-    const { courseService } = useContext(ApiContext);
+    const {courseService} = useContext(ApiContext);
 
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
@@ -39,9 +39,9 @@ export default function SingleCoursePage() {
 
     return (
         <div>
-            <CssBaseline />
-            <Header siteInformation={`Kurs: ${course?.name}`} />
-            <Container maxWidth="md" sx={{ mt: 4 }}>
+            <CssBaseline/>
+            <Header siteInformation={`Kurs: ${course?.name}`}/>
+            <Container maxWidth="md" sx={{mt: 4}}>
                 {course ? (
                     <Box
                         sx={{
@@ -55,31 +55,31 @@ export default function SingleCoursePage() {
                         <Typography variant="h2" gutterBottom>
                             {course.name}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             Semester: {course.semester}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             Professor: {course.professor}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             University Chair: {course.universityChair}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             Exam Date:{" "}
                             {course.exam_date
                                 ? new Date(course.exam_date).toLocaleDateString()
                                 : "Noch nicht festgelegt"}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             Exam Admission: {formatBoolean(course.examAdmission)}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             Tutorial: {formatBoolean(course.tutorial)}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             Old Exam: {formatBoolean(course.oldExam)}
                         </Typography>
-                        <Typography variant="h5" sx={{ mb: 2 }}>
+                        <Typography variant="h5" sx={{mb: 2}}>
                             Bonus Points: {formatBoolean(course.bonusPoints)}
                         </Typography>
                     </Box>
@@ -89,7 +89,31 @@ export default function SingleCoursePage() {
                     </Typography>
                 )}
             </Container>
-            <ChatBox />
+            <Container maxWidth="md" sx={{mt: 4}} style={{textAlign: "center"}}>
+                <Button style={{
+                    fontSize: "1.2rem",
+                    padding: "12px 30px",
+                    backgroundColor: theme.palette.primary.main,
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
+                }}
+                        onMouseOver={(e) => {
+                            e.target.style.backgroundColor = theme.palette.primary.dark;
+                            e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
+                        }}
+                        onMouseOut={(e) => {
+                            e.target.style.backgroundColor = theme.palette.primary.main;
+                            e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+                        }}
+                onClick={()=>navigate(`/review?query=${encodeURIComponent(courseId)}`)}>
+                    Bewerte diesen Kurs
+                </Button>
+            </Container>
+            <ChatBox/>
         </div>
     );
 }

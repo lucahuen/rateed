@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Header from "../components/header";
 import Footer from "../components/footer.jsx";
-import { Box, CssBaseline, Button } from "@mui/material";
+import {Box, CssBaseline, Button} from "@mui/material";
 import Cookies from "js-cookie";
-import { useLocation, useNavigate } from "react-router-dom";
-import { ApiContext } from "../context/api-context.jsx";
+import {useLocation, useNavigate} from "react-router-dom";
+import {ApiContext} from "../context/api-context.jsx";
 import QuestionBox from "../components/questionBox.jsx";
 
 export default function ReviewPage() {
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
-    const { courseService, reviewService } = useContext(ApiContext);
+    const {courseService, reviewService} = useContext(ApiContext);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const courseId = queryParams.get("courseId") || "";
+    const courseId = queryParams.get("query") || "";
 
     const [course, setCourse] = useState("");
     const [ratings, setRatings] = useState([3]);
@@ -22,8 +22,6 @@ export default function ReviewPage() {
     const [question1, setQuestion1] = useState(0);
     const [question2, setQuestion2] = useState(0);
     const [question3, setQuestion3] = useState(0);
-
-
 
 
     useEffect(() => {
@@ -52,7 +50,7 @@ export default function ReviewPage() {
 
     const handleSubmitRatings = (username, score1, score2, score3, courseName) => {
         try {
-            reviewService.requestSubmitRating(username, score1, score2, score3, courseName).then(() =>{
+            reviewService.requestSubmitRating(username, score1, score2, score3, courseName).then(() => {
                 console.log("Success");
                 //navigate("/reviews");
             }).catch((error) => {
@@ -66,62 +64,91 @@ export default function ReviewPage() {
     };
 
 
-return (
-    <div style={{
-        textAlign: "center",
-        fontFamily: "Arial, Helvetica, sans-serif",
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-    }}>
-        <CssBaseline />
-        <Header siteInformation={`Review erstellen zu ${course?.name}`} />
+    return (
+        <div style={{
+            textAlign: "center",
+            fontFamily: "Arial, Helvetica, sans-serif",
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh',
+        }}>
+            <CssBaseline/>
+            <Header siteInformation={`Review erstellen zu ${course?.name}`}/>
 
-        <Box
-            sx={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start', // Beginnt am oberen Rand
-                gap: 2,
-                padding: 2,
-                marginTop: 10,
-                overflowY: 'auto', // Ermöglicht das Scrollen der QuestionBox-Komponenten
-                maxHeight: 'calc(100vh - 150px)', // Verhindert, dass der Container den Viewport überschreitet
-            }}
-        >
-
-            <QuestionBox
-                text={`Frage 1: `}
-                onRatingChange={handleRatingChange1}
-            />
-
-            <QuestionBox
-                text={`Frage 2: `}
-                onRatingChange={handleRatingChange2}
-            />
-
-            <QuestionBox
-                text={`Frage 3: `}
-                onRatingChange={handleRatingChange3}
-            />
-
-        </Box>
-
-
-        <Box sx={{ paddingBottom: 2 }}>
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmitRatings}
+            <Box
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start', // Beginnt am oberen Rand
+                    gap: 2,
+                    padding: 2,
+                    marginTop: 10,
+                    overflowY: 'auto', // Ermöglicht das Scrollen der QuestionBox-Komponenten
+                    maxHeight: 'calc(100vh - 150px)', // Verhindert, dass der Container den Viewport überschreitet
+                }}
             >
-                Bewertungen abschicken
-            </Button>
-        </Box>
 
-        {/* Footer bleibt am Ende */}
-        <Footer />
-    </div>
-);
+                <QuestionBox
+                    text={`Frage 1: `}
+                    onRatingChange={handleRatingChange1}
+                />
+
+                <QuestionBox
+                    text={`Frage 2: `}
+                    onRatingChange={handleRatingChange2}
+                />
+
+                <QuestionBox
+                    text={`Frage 3: `}
+                    onRatingChange={handleRatingChange3}
+                />
+
+            </Box>
+
+
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 3, // Größerer Abstand zwischen den Buttons
+                    paddingBottom: 2,
+                }}
+            >
+                <Button
+                    variant="contained"
+                    color="error" // Rot eingefärbt
+                    sx={{
+                        px: 4,
+                        py: 2,
+                        fontSize: "1rem",
+                        textTransform: "none",
+                        borderRadius: "8px",
+                    }}
+                    onClick={() => navigate(`/courses/course?query=${encodeURIComponent(courseId)}`)}
+                >
+                    Abbrechen
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        px: 4,
+                        py: 2,
+                        fontSize: "1rem",
+                        textTransform: "none",
+                        borderRadius: "8px",
+                    }}
+                    onClick={() => handleSubmitRatings("username", question1, question2, question3, course.name)}
+                >
+                    Bewertungen abschicken
+                </Button>
+            </Box>
+
+
+            {/* Footer bleibt am Ende */}
+            <Footer/>
+        </div>
+    );
 }
