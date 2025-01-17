@@ -105,7 +105,7 @@ export default function SingleCoursePage() {
                 )}
             </Container>
             <Container maxWidth="md" sx={{mt: 4}} style={{textAlign: "center"}}>
-                {!userHasReviewedThisCourse && (
+                {/*{!userHasReviewedThisCourse && (*/}
                     <Button
                         style={{
                             fontSize: "1.2rem",
@@ -130,7 +130,7 @@ export default function SingleCoursePage() {
                     >
                         Bewerte diesen Kurs
                     </Button>
-                )}
+                {/*)}*/}
             </Container>
             v
             <ChatBox/>

@@ -4,18 +4,34 @@ exports.createReview = async (req, res, next) => {
     const {userId, score1, score2, score3, courseId} = req.body;
 
     try {
-        const review = await new Review(
-            {userId: userId, score1: score1, score2: score2, score3: score3, courseId: courseId}).save();
+        const foundReview = await Review.findOne({userId: userId, courseId: courseId});
+        let review;
+
+        if (foundReview) {
+            review = await Review.findOneAndUpdate(
+                {userId: userId, courseId: courseId}, // Filter
+                {$set: {score1: score1, score2: score2, score3: score3}}, // Update
+                {new: true}
+            );
+        } else {
+            review = await new Review({
+                userId: userId,
+                score1: score1,
+                score2: score2,
+                score3: score3,
+                courseId: courseId
+            }).save();
+        }
 
         return res.status(201).json({
-            message: "Review created!",
+            message: "Review created or updated!",
             data: review,
-        })
+        });
 
     } catch (error) {
         next(error);
     }
-}
+};
 
 exports.getReviewByUserAndCourse = async (req, res, next) => {
     const userId = req.params.userId;
