@@ -5,5 +5,6 @@ const reviewController = require("../controllers/review-controllers");
 const reviewRouter = express.Router();
 
 reviewRouter.post("/", requestLogger, reviewController.createReview);
+reviewRouter.get("/:userId/:courseId", requestLogger, reviewController.getReviewByUserAndCourse)
 
 module.exports = reviewRouter;

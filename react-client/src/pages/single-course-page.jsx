@@ -14,7 +14,8 @@ export default function SingleCoursePage() {
     const queryParams = new URLSearchParams(location.search);
     const courseId = queryParams.get("query") || ""; // Default ist ein leerer String
     const [course, setCourse] = useState(null);
-    const {courseService} = useContext(ApiContext);
+    const {courseService, reviewService} = useContext(ApiContext);
+    const [userHasReviewedThisCourse, setUserHasReviewedThisCourse] = useState(false);
 
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
@@ -34,6 +35,19 @@ export default function SingleCoursePage() {
             .catch((error) => {
                 console.error(error);
             });
+        reviewService
+            .requestReviewByUserAndCourse(sessionId, courseId)
+            .then((res) => {
+                console.log(res.data)
+                if (res.data) {
+                    setUserHasReviewedThisCourse(true);
+                } else {
+                    setUserHasReviewedThisCourse(false);
+                }
+            })
+            .catch((e) => {
+                console.error(e)
+            })
     }, [courseId, courseService, navigate]);
 
     const formatBoolean = (value) => (value ? "Ja" : "Nein");
@@ -91,17 +105,19 @@ export default function SingleCoursePage() {
                 )}
             </Container>
             <Container maxWidth="md" sx={{mt: 4}} style={{textAlign: "center"}}>
-                <Button style={{
-                    fontSize: "1.2rem",
-                    padding: "12px 30px",
-                    backgroundColor: theme.palette.primary.main,
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
-                }}
+                {!userHasReviewedThisCourse && (
+                    <Button
+                        style={{
+                            fontSize: "1.2rem",
+                            padding: "12px 30px",
+                            backgroundColor: theme.palette.primary.main,
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "8px",
+                            cursor: "pointer",
+                            transition: "all 0.3s ease",
+                            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                        }}
                         onMouseOver={(e) => {
                             e.target.style.backgroundColor = theme.palette.primary.dark;
                             e.target.style.boxShadow = "0 6px 10px rgba(0, 0, 0, 0.2)";
@@ -110,10 +126,13 @@ export default function SingleCoursePage() {
                             e.target.style.backgroundColor = theme.palette.primary.main;
                             e.target.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
                         }}
-                onClick={()=>navigate(`/review?query=${encodeURIComponent(courseId)}`)}>
-                    Bewerte diesen Kurs
-                </Button>
+                        onClick={() => navigate(`/review?query=${encodeURIComponent(courseId)}`)}
+                    >
+                        Bewerte diesen Kurs
+                    </Button>
+                )}
             </Container>
+            v
             <ChatBox/>
             <Footer/>
         </div>

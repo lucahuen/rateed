@@ -52,7 +52,7 @@ export default function ReviewPage() {
         try {
             reviewService.requestSubmitRating(sessionId, score1, score2, score3, courseId).then(() => {
                 console.log("Success");
-                //navigate("/reviews");
+                navigate(`/courses/course/?query=${encodeURIComponent(courseId)}`);
             }).catch((error) => {
                 console.error("Error", error);
             })
