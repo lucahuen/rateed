@@ -7,7 +7,8 @@ import { useTheme } from "@mui/material/styles";
 import ChatBox from "../components/chat-box.jsx";
 import Cookies from "js-cookie";
 import Footer from "../components/footer.jsx";
-import "./CSS-Files/Slider.css";
+import "./CSS-Files/BigSlider.css";
+import "./CSS-Files/SmallSlider.css";
 
 export default function SingleCoursePage() {
     const theme = useTheme();
@@ -16,11 +17,15 @@ export default function SingleCoursePage() {
     const courseId = queryParams.get("query") || ""; // Default is an empty string
     const [course, setCourse] = useState(null);
     const { courseService, reviewService } = useContext(ApiContext);
-    const [score1, setScore1] = useState(0);
-    const [score2, setScore2] = useState(0);
-    const [score3, setScore3] = useState(0);
+    const [scoreTime, setScoreTime] = useState(0);
+    const [scoreComplexity, setScoreComplexity] = useState(0);
+    const [scoreQuality, setScoreQuality] = useState(0);
     const [averageTotalScore, setAverageTotalScore] = useState(0);
-    const indicatorPosition = (averageTotalScore / 5) * 100;
+    const indicatorPositionTotal = (averageTotalScore / 5) * 100;
+    const indicatorPositionQuality = (scoreQuality / 5) * 100;
+    const indicatorPositionComplexity = (scoreComplexity / 5) * 100;
+    const indicatorPositionTime = (scoreTime/ 5) * 100;
+
 
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
@@ -51,25 +56,25 @@ export default function SingleCoursePage() {
     }, [courseId, courseService, navigate]);
 
     const processReviews = (reviews) => {
-        let tmpScore1 = 0;
-        let tmpScore2 = 0;
-        let tmpScore3 = 0;
+        let tmpScoreTime = 0;
+        let tmpScoreComplexity = 0;
+        let tmpScoreQuality = 0;
 
         for (let review of reviews) {
-            tmpScore1 += review.score1;
-            tmpScore2 += review.score2;
-            tmpScore3 += review.score3;
+            tmpScoreTime += review.score1;
+            tmpScoreComplexity+= review.score2;
+            tmpScoreQuality += review.score3;
         }
 
-        tmpScore1 /= reviews.length;
-        tmpScore2 /= reviews.length;
-        tmpScore3 /= reviews.length;
+        tmpScoreTime /= reviews.length;
+        tmpScoreComplexity /= reviews.length;
+        tmpScoreQuality /= reviews.length;
 
-        setScore1(Number(tmpScore1.toFixed(2)));
-        setScore2(Number(tmpScore2.toFixed(2)));
-        setScore3(Number(tmpScore3.toFixed(2)));
+        setScoreTime(Number(tmpScoreTime.toFixed(2)));
+        setScoreComplexity(Number(tmpScoreComplexity.toFixed(2)));
+        setScoreQuality(Number(tmpScoreQuality.toFixed(2)));
 
-        setAverageTotalScore(Number(((tmpScore1 + tmpScore2 + tmpScore3) / 3).toFixed(2)));
+        setAverageTotalScore(Number(((tmpScoreTime + tmpScoreComplexity + tmpScoreQuality) / 3).toFixed(2)));
     };
 
     const formatBoolean = (value) => (value ? "Ja" : "Nein");
@@ -78,7 +83,7 @@ export default function SingleCoursePage() {
         <div>
             <CssBaseline />
             <Header siteInformation={`Kurs: ${course?.name}`} />
-            <Container maxWidth="lg" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Container maxWidth="lg" sx={{ mt: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:"center" }}>
             {course ? (
                 <Box
                     sx={{
@@ -97,53 +102,84 @@ export default function SingleCoursePage() {
                     }}
                 >
 
-                <Typography variant="h2" gutterBottom sx={{textAlign: "center", justifyContent:"center", alignItems:"center"}}>
-                            {course.name}
-                        </Typography>
+                    <Typography variant="h2" gutterBottom
+                                sx={{textAlign: "center", justifyContent: "center", alignItems: "center"}}>
+                        {course.name}
+                    </Typography>
 
-                        {/* Course Details Grid */}
-                    <Grid container spacing={4} sx={{ textAlign: "center", justifyContent:"center", alignItems: "center" }}>
+                    {/* Course Details Grid */}
+                    <Grid container sx={{textAlign: "center", justifyContent: "center", alignItems: "center"}}>
                         {/* Left Column */}
-                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", justifyContent:"center", alignItems: "center", backgroundColor:"blue" }}>
-                                <Typography variant="h5">Semester: {course.semester}</Typography>
-                                <Typography variant="h5">Professor: {course.professor}</Typography>
-                                <Typography variant="h5">Lehrstuhl: {course.universityChair}</Typography>
-                                <Typography variant="h5">Moodle Schlüssel: {course.moodleKey}</Typography>
-                            </Grid>
-
-                            {/* Right Column */}
-                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", alignItems: "center", backgroundColor: "green" }}>
-                                <Typography variant="h5">Klausurzulassung: {formatBoolean(course.examAdmission)}</Typography>
-                                <Typography variant="h5">Übung: {formatBoolean(course.tutorial)}</Typography>
-                                <Typography variant="h5">Alt Klausuren: {formatBoolean(course.oldExam)}</Typography>
-                                <Typography variant="h5">Bonus Punkte: {formatBoolean(course.bonusPoints)}</Typography>
-                            </Grid>
+                        <Grid item xs={12} md={6} sx={{textAlign: "left"}}>
+                            <Typography variant="h5">Semester: {course.semester}</Typography>
+                            <Typography variant="h5">Professor: {course.professor}</Typography>
+                            <Typography variant="h5">Lehrstuhl: {course.universityChair}</Typography>
+                            <Typography variant="h5">Moodle Schlüssel: {course.moodleKey}</Typography>
                         </Grid>
 
-                        {/* Slider Section */}
-                        <div className="slider-container">
-                            <div className="slider-label">Overall Rating</div>
-                            <div className="slider-bar">
-                                <div
-                                    className="rating-indicator"
-                                    style={{ left: `${indicatorPosition}%` }}
-                                ></div>
-                            </div>
-                            <div className="slider-value">Value: {averageTotalScore.toFixed(2)}</div>
-                        </div>
+                        {/* Right Column */}
+                        <Grid item xs={12} md={6} sx={{textAlign: "left"}}>
+                            <Typography
+                                variant="h5">Klausurzulassung: {formatBoolean(course.examAdmission)}</Typography>
+                            <Typography variant="h5">Übung: {formatBoolean(course.tutorial)}</Typography>
+                            <Typography variant="h5">Alt Klausuren: {formatBoolean(course.oldExam)}</Typography>
+                            <Typography variant="h5">Bonus Punkte: {formatBoolean(course.bonusPoints)}</Typography>
+                        </Grid>
+                    </Grid>
 
-                        {/* Scores Display */}
-                        <Typography variant="body1">Score 1: {score1}</Typography>
-                        <Typography variant="body1">Score 2: {score2}</Typography>
-                        <Typography variant="body1">Score 3: {score3}</Typography>
-                    </Box>
-                ) : (
-                    <Typography variant="body1" color="textSecondary">
-                        Kursdaten werden geladen...
-                    </Typography>
-                )}
+                    {/* Slider Section */}
+                    <div className="bigslider-container">
+                        <div className="bigslider-label">Gesamtbewertung</div>
+                        <div className="bigslider-bar">
+                            <div
+                                className="bigrating-indicator"
+                                style={{left: `${indicatorPositionTotal}%`}}
+                            ></div>
+                        </div>
+                        <div className="bigslider-value">Value: {averageTotalScore.toFixed(2)}</div>
+                    </div>
+
+                    {/* Individual Scores Slider Display */}
+                    <div className="smallslider-container">
+                        <div className="smallslider-label">Zeitaufwand (relativ zu CP)</div>
+                        <div className="smallslider-bar">
+                            <div
+                                className="smallrating-indicator"
+                                style={{left: `${indicatorPositionTime}%`}}
+                            ></div>
+                        </div>
+                        <div className="smallslider-value">Wert: {scoreTime.toFixed(2)}</div>
+                    </div>
+
+                    <div className="smallslider-container">
+                        <div className="smallslider-label">Komplexität</div>
+                        <div className="smallslider-bar">
+                            <div
+                                className="smallrating-indicator"
+                                style={{left: `${indicatorPositionComplexity}%`}}
+                            ></div>
+                        </div>
+                        <div className="smallslider-value">Wert: {scoreComplexity.toFixed(2)}</div>
+                    </div>
+
+                    <div className="smallslider-container">
+                        <div className="smallslider-label">Vorlesungsqualität</div>
+                        <div className="smallslider-bar">
+                            <div
+                                className="smallrating-indicator"
+                                style={{left: `${indicatorPositionQuality}%`}}
+                            ></div>
+                        </div>
+                        <div className="smallslider-value">Wert: {scoreQuality.toFixed(2)}</div>
+                    </div>
+                </Box>
+            ) : (
+                <Typography variant="body1" color="textSecondary">
+                    Kursdaten werden geladen...
+                </Typography>
+            )}
             </Container>
-            <Container maxWidth="md" sx={{ mt: 4 }} style={{ textAlign: "center" }}>
+            <Container maxWidth="md" sx={{mt: 4}} style={{textAlign: "center"}}>
                 <Button
                     style={{
                         fontSize: "1.2rem",
