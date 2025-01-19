@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import theme from "../theme.js";
 
 const AddCourse = ({ handleAddCourse }) => {
     const [name, setName] = useState("");
@@ -29,7 +28,7 @@ const AddCourse = ({ handleAddCourse }) => {
     }, []);
 
     const handleAddCourseAndClearTextfield = () => {
-        // Reihenfolge aus dem course-model
+        // same order as in course-model
         handleAddCourse(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId);
         setName("");
         setSemester("");
@@ -138,7 +137,7 @@ const AddCourse = ({ handleAddCourse }) => {
                     />
                 </Grid>
 
-                {/* Old Exam */}
+                {/* Old Exams */}
                 <Grid item xs={12}>
                     <FormControlLabel
                         control={
