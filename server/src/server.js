@@ -25,7 +25,8 @@ if (process.env.NODE_ENV !== "production") {
     console.log("NODE_ENV", process.env.NODE_ENV);
     app.use(cors({
         origin: [
-            "http://localhost:5173"
+            "http://localhost:5173",
+            "https://rateed.onrender.com",
         ]
     }));
 }
