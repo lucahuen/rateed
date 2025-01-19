@@ -102,9 +102,9 @@ export default function SingleCoursePage() {
                         </Typography>
 
                         {/* Course Details Grid */}
-                    <Grid container spacing={4} sx={{ textAlign: "center", justifyContent:"center", alignItems: "center" }}>
+                    <Grid container sx={{ textAlign: "center", justifyContent:"center", alignItems: "center", marginLeft:"20%"}}>
                         {/* Left Column */}
-                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", justifyContent:"center", alignItems: "center", backgroundColor:"blue" }}>
+                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", justifyContent:"center", alignItems: "center"}}>
                                 <Typography variant="h5">Semester: {course.semester}</Typography>
                                 <Typography variant="h5">Professor: {course.professor}</Typography>
                                 <Typography variant="h5">Lehrstuhl: {course.universityChair}</Typography>
@@ -112,7 +112,7 @@ export default function SingleCoursePage() {
                             </Grid>
 
                             {/* Right Column */}
-                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", alignItems: "center", backgroundColor: "green" }}>
+                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", alignItems: "center"}}>
                                 <Typography variant="h5">Klausurzulassung: {formatBoolean(course.examAdmission)}</Typography>
                                 <Typography variant="h5">Übung: {formatBoolean(course.tutorial)}</Typography>
                                 <Typography variant="h5">Alt Klausuren: {formatBoolean(course.oldExam)}</Typography>

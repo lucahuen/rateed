@@ -30,10 +30,10 @@ export default function AddCoursePage() {
             });
     }, [initialQuery, courseService]);
 
-    const handleAddCourse = (name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId) => {
-        console.log(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId)
+    const handleAddCourse = (name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId, moodleKey) => {
+
         courseService
-            .requestCreateCourse(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId)
+            .requestCreateCourse(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId, moodleKey)
             .then((res) => {
                 setCourses((prevState) => [...prevState, res.data]);
             })
