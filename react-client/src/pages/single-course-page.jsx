@@ -108,7 +108,7 @@ export default function SingleCoursePage() {
                     </Typography>
 
                     {/* Course Details Grid */}
-                    <Grid container sx={{textAlign: "center", justifyContent: "center", alignItems: "center"}}>
+                    <Grid container sx={{textAlign: "center", justifyContent: "center", alignItems: "center", marginLeft: "20%"}}>
                         {/* Left Column */}
                         <Grid item xs={12} md={6} sx={{textAlign: "left"}}>
                             <Typography variant="h5">Semester: {course.semester}</Typography>
