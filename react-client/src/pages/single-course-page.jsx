@@ -1,9 +1,9 @@
-import { CssBaseline, Container, Typography, Box, Button, Grid } from "@mui/material";
+import {CssBaseline, Container, Typography, Box, Button, Grid} from "@mui/material";
 import Header from "../components/header.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { ApiContext } from "../context/api-context.jsx";
-import { useTheme } from "@mui/material/styles";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {ApiContext} from "../context/api-context.jsx";
+import {useTheme} from "@mui/material/styles";
 import ChatBox from "../components/chat-box.jsx";
 import Cookies from "js-cookie";
 import Footer from "../components/footer.jsx";
@@ -15,7 +15,7 @@ export default function SingleCoursePage() {
     const queryParams = new URLSearchParams(location.search);
     const courseId = queryParams.get("query") || ""; // Default is an empty string
     const [course, setCourse] = useState(null);
-    const { courseService, reviewService } = useContext(ApiContext);
+    const {courseService, reviewService} = useContext(ApiContext);
     const [score1, setScore1] = useState(0);
     const [score2, setScore2] = useState(0);
     const [score3, setScore3] = useState(0);
@@ -51,60 +51,74 @@ export default function SingleCoursePage() {
     }, [courseId, courseService, navigate]);
 
     const processReviews = (reviews) => {
-        let tmpScore1 = 0;
-        let tmpScore2 = 0;
-        let tmpScore3 = 0;
+        if (reviews.data) {
+            let tmpScore1 = 0;
+            let tmpScore2 = 0;
+            let tmpScore3 = 0;
 
-        for (let review of reviews) {
-            tmpScore1 += review.score1;
-            tmpScore2 += review.score2;
-            tmpScore3 += review.score3;
+            for (let review of reviews) {
+                tmpScore1 += review.score1;
+                tmpScore2 += review.score2;
+                tmpScore3 += review.score3;
+            }
+
+            tmpScore1 /= reviews.length;
+            tmpScore2 /= reviews.length;
+            tmpScore3 /= reviews.length;
+
+            setScore1(Number(tmpScore1.toFixed(2)));
+            setScore2(Number(tmpScore2.toFixed(2)));
+            setScore3(Number(tmpScore3.toFixed(2)));
+
+            setAverageTotalScore(Number(((tmpScore1 + tmpScore2 + tmpScore3) / 3).toFixed(2)));
+        }else{
+            setScore1(0);
+            setScore2(0);
+            setScore3(0);
+            setAverageTotalScore(0);
         }
-
-        tmpScore1 /= reviews.length;
-        tmpScore2 /= reviews.length;
-        tmpScore3 /= reviews.length;
-
-        setScore1(Number(tmpScore1.toFixed(2)));
-        setScore2(Number(tmpScore2.toFixed(2)));
-        setScore3(Number(tmpScore3.toFixed(2)));
-
-        setAverageTotalScore(Number(((tmpScore1 + tmpScore2 + tmpScore3) / 3).toFixed(2)));
     };
 
     const formatBoolean = (value) => (value ? "Ja" : "Nein");
 
     return (
         <div>
-            <CssBaseline />
-            <Header siteInformation={`Kurs: ${course?.name}`} />
-            <Container maxWidth="lg" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {course ? (
-                <Box
-                    sx={{
-                        p: 10,
-                        mt: 1,
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-                        backgroundColor: theme.palette.background.paper,
-                        width: "100%",
-                        display: "flex",  // Ensures flexbox layout
-                        flexDirection: "column",  // Ensures content is arranged in column
-                        alignItems: "center",  // Centers content horizontally
-                        justifyContent: "center",
-                        textAlign: "center"// Centers content vertically if needed
-                    }}
-                >
+            <CssBaseline/>
+            <Header siteInformation={`Kurs: ${course?.name}`}/>
+            <Container maxWidth="lg" sx={{mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                {course ? (
+                    <Box
+                        sx={{
+                            p: 10,
+                            mt: 1,
+                            border: "1px solid #ddd",
+                            borderRadius: "8px",
+                            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                            backgroundColor: theme.palette.background.paper,
+                            width: "100%",
+                            display: "flex",  // Ensures flexbox layout
+                            flexDirection: "column",  // Ensures content is arranged in column
+                            alignItems: "center",  // Centers content horizontally
+                            justifyContent: "center",
+                            textAlign: "center"// Centers content vertically if needed
+                        }}
+                    >
 
-                <Typography variant="h2" gutterBottom sx={{textAlign: "center", justifyContent:"center", alignItems:"center"}}>
+                        <Typography variant="h2" gutterBottom
+                                    sx={{textAlign: "center", justifyContent: "center", alignItems: "center"}}>
                             {course.name}
                         </Typography>
 
                         {/* Course Details Grid */}
-                    <Grid container sx={{ textAlign: "center", justifyContent:"center", alignItems: "center", marginLeft:"20%"}}>
-                        {/* Left Column */}
-                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", justifyContent:"center", alignItems: "center"}}>
+                        <Grid container sx={{
+                            textAlign: "center",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginLeft: "20%"
+                        }}>
+                            {/* Left Column */}
+                            <Grid item xs={"auto"} md={6}
+                                  sx={{textAlign: "left", justifyContent: "center", alignItems: "center"}}>
                                 <Typography variant="h5">Semester: {course.semester}</Typography>
                                 <Typography variant="h5">Professor: {course.professor}</Typography>
                                 <Typography variant="h5">Lehrstuhl: {course.universityChair}</Typography>
@@ -112,8 +126,9 @@ export default function SingleCoursePage() {
                             </Grid>
 
                             {/* Right Column */}
-                            <Grid item xs={"auto"} md={6} sx={{ textAlign: "left", alignItems: "center"}}>
-                                <Typography variant="h5">Klausurzulassung: {formatBoolean(course.examAdmission)}</Typography>
+                            <Grid item xs={"auto"} md={6} sx={{textAlign: "left", alignItems: "center"}}>
+                                <Typography
+                                    variant="h5">Klausurzulassung: {formatBoolean(course.examAdmission)}</Typography>
                                 <Typography variant="h5">Übung: {formatBoolean(course.tutorial)}</Typography>
                                 <Typography variant="h5">Alt Klausuren: {formatBoolean(course.oldExam)}</Typography>
                                 <Typography variant="h5">Bonus Punkte: {formatBoolean(course.bonusPoints)}</Typography>
@@ -126,7 +141,7 @@ export default function SingleCoursePage() {
                             <div className="slider-bar">
                                 <div
                                     className="rating-indicator"
-                                    style={{ left: `${indicatorPosition}%` }}
+                                    style={{left: `${indicatorPosition}%`}}
                                 ></div>
                             </div>
                             <div className="slider-value">Value: {averageTotalScore.toFixed(2)}</div>
@@ -143,7 +158,7 @@ export default function SingleCoursePage() {
                     </Typography>
                 )}
             </Container>
-            <Container maxWidth="md" sx={{ mt: 4 }} style={{ textAlign: "center" }}>
+            <Container maxWidth="md" sx={{mt: 4}} style={{textAlign: "center"}}>
                 <Button
                     style={{
                         fontSize: "1.2rem",
@@ -169,8 +184,8 @@ export default function SingleCoursePage() {
                     Bewerte diesen Kurs
                 </Button>
             </Container>
-            <ChatBox />
-            <Footer />
+            <ChatBox/>
+            <Footer/>
         </div>
     );
 }
