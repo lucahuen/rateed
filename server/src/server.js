@@ -31,10 +31,10 @@ if (process.env.NODE_ENV !== "production") {
     }));
 }
 
-app.use("/courses", courseRouter);
-app.use("/users", userRouter);
-app.use("/reviews", reviewRouter);
-app.use("/messages", messageRouter)
+app.use("/api/courses", courseRouter);
+app.use("/api/users", userRouter);
+app.use("/api/reviews", reviewRouter);
+app.use("/api/messages", messageRouter)
 
 app.use(errorHandler);
 
