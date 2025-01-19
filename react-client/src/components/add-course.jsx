@@ -82,19 +82,19 @@ const AddCourse = ({ handleAddCourse }) => {
                     />
                 </Grid>
 
-                {/* Moodle Key */}
+                {/* University Chair */}
                 <Grid item xs={12}>
                     <TextField
                         fullWidth
-                        placeholder="Professor of the course"
+                        placeholder="Lehrstuhl"
                         size="small"
-                        onChange={(e) => setProfessor(e.target.value)}
-                        value={professor}
-                        label="Professor"
+                        onChange={(e) => setUniversityChair(e.target.value)}
+                        value={universityChair}
+                        label="Lehrstuhl"
                     />
                 </Grid>
 
-                {/* University Chair */}
+                {/* Moodle Key */}
                 <Grid item xs={12}>
                     <TextField
                         fullWidth
