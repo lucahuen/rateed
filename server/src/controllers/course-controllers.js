@@ -2,9 +2,8 @@ const Course = require("../models/course-model");
 
 exports.createCourse = async (req, res, next) => {
     const {
-        name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId
+        name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId, moodleKey
     } = req.body;
-    console.log(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId)
     try {
         const newCourse = await new Course({
             name: name,
@@ -16,7 +15,8 @@ exports.createCourse = async (req, res, next) => {
             tutorial: tutorial,
             oldExam: oldExam,
             bonusPoints: bonusPoints,
-            authorId: authorId
+            authorId: authorId,
+            moodleKey: moodleKey
         }).save();
         return res.status(201).json({
             message: `New course created!`, data: newCourse,

@@ -19,7 +19,7 @@ export default class CourseService {
         }
     }
 
-    requestCreateCourse = async (name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId) => {
+    requestCreateCourse = async (name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId, moodleKey) => {
         try {
             const response = await api.post("/api/courses/create", {
                 name: name,
@@ -31,7 +31,8 @@ export default class CourseService {
                 tutorial: tutorial,
                 oldExam: oldExam,
                 bonusPoints: bonusPoints,
-                authorId: authorId
+                authorId: authorId,
+                moodleKey: moodleKey,
             });
             return response.data;
         } catch (error) {

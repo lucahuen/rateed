@@ -18,6 +18,7 @@ const AddCourse = ({ handleAddCourse }) => {
     const [oldExam, setOldExam] = useState(false);
     const [examAdmission, setExamAdmission] = useState(false);
     const [authorId, setAuthorId] = useState(Cookies.get("auth") || "");
+    const [moodleKey, setMoodleKey] = useState("");
     const sessionId = Cookies.get("auth");
     const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const AddCourse = ({ handleAddCourse }) => {
 
     const handleAddCourseAndClearTextfield = () => {
         // Reihenfolge aus dem course-model
-        handleAddCourse(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId);
+        handleAddCourse(name, semester, professor, universityChair, examDate, examAdmission, tutorial, oldExam, bonusPoints, authorId, moodleKey);
         setName("");
         setSemester("");
         setProfessor("");
@@ -39,6 +40,7 @@ const AddCourse = ({ handleAddCourse }) => {
         setTutorial(false);
         setBonusPoints(false);
         setOldExam(false);
+        setMoodleKey("");
     };
 
     return (
@@ -80,15 +82,27 @@ const AddCourse = ({ handleAddCourse }) => {
                     />
                 </Grid>
 
+                {/* Moodle Key */}
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        placeholder="Professor of the course"
+                        size="small"
+                        onChange={(e) => setProfessor(e.target.value)}
+                        value={professor}
+                        label="Professor"
+                    />
+                </Grid>
+
                 {/* University Chair */}
                 <Grid item xs={12}>
                     <TextField
                         fullWidth
-                        placeholder="University Chair of the course"
+                        placeholder="Moodle Key"
                         size="small"
-                        onChange={(e) => setUniversityChair(e.target.value)}
-                        value={universityChair}
-                        label="University Chair"
+                        onChange={(e) => setMoodleKey(e.target.value)}
+                        value={moodleKey}
+                        label="Moodle Key"
                     />
                 </Grid>
 

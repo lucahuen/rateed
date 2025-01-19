@@ -14,8 +14,7 @@ const courseSchema = new Schema({
     bonusPoints: {type: Boolean, required: true},
     authorId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     createdAt: {type: Date, default: Date.now()},
-    score: {type: Number, default: 0},
-    counter: {type: Number, default: 0},
+    moodleKey: {type: String, default: "Kein Schlüssel"},
 });
 
 module.exports = mongoose.model("Course", courseSchema);
