@@ -91,17 +91,17 @@ export default function ReviewPage() {
             >
 
                 <QuestionBox
-                    text={`Frage 1: `}
+                    text={`Zeitaufwand (relativ zu CP): `}
                     onRatingChange={handleRatingChange1}
                 />
 
                 <QuestionBox
-                    text={`Frage 2: `}
+                    text={`Komplexität: `}
                     onRatingChange={handleRatingChange2}
                 />
 
                 <QuestionBox
-                    text={`Frage 3: `}
+                    text={`Vorlesungsqualität: `}
                     onRatingChange={handleRatingChange3}
                 />
 
