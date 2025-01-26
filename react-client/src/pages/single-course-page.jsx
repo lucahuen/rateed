@@ -53,7 +53,7 @@ export default function SingleCoursePage() {
             .catch((e) => {
                 console.error(e);
             });
-    }, [courseId, courseService, navigate, reviewService, sessionId]);
+    }, [courseId, courseService, reviewService, sessionId]);
 
     const processReviews = (reviews) => {
         let tmpScoreTime = 0;
